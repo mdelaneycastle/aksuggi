@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1200" viewBox="0 0 1600 1200">
+<rect width="1600" height="1200" fill="#cececa"/>
+<rect x="32" y="32" width="1536" height="1136" rx="2" fill="none" stroke="#151515" opacity=".2"/>
+<path d="M760 530h80m-40-40v80" stroke="#151515" stroke-width="2" opacity=".55"/>
+<text x="800" y="642" text-anchor="middle" fill="#151515" font-family="Arial,sans-serif" font-size="40" letter-spacing="-1">AK / PORTRAIT</text>
+<text x="800" y="694" text-anchor="middle" fill="#151515" font-family="Arial,sans-serif" font-size="21" letter-spacing="2" opacity=".65">IMAGE PLACEHOLDER</text>
+</svg>
