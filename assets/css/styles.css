@@ -47,6 +47,10 @@ ul { list-style: none; margin: 0; padding: 0; }
 .home-intro { display: grid; grid-template-columns: 1fr 260px; align-items: end; gap: 48px; padding-top: clamp(54px, 6vw, 90px); }
 .wordmark { font-size: clamp(5.5rem, 12vw, 11rem); line-height: .79; font-weight: 780; letter-spacing: -.04em; }
 .wordmark span { display: block; }
+/* The footer wordmark is a link, so the global a:hover underline applied to it.
+   With line-height .79 the underline of AK fell inside SUGGI, reading as a
+   strike-through. The logo needs no underline to look like a link. */
+a.wordmark:hover { text-decoration: none; }
 .intro-note { max-width: 250px; font-size: 1.125rem; font-weight: 650; line-height: 1.1; padding-bottom: 5px; }
 .intro-meta { display: flex; justify-content: space-between; gap: 24px; margin-top: 56px; margin-bottom: 92px; }
 .availability { color: var(--muted); }
