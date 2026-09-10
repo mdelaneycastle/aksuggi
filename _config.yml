@@ -27,6 +27,8 @@ exclude:
   - README.txt
   - CMS-PLAN.md
   - vendor
+  - docs
+  - AK-Suggi-Editing-Guide.pdf
 
 # No plugins: keeps the build identical under GitHub's native Jekyll, which
 # only permits a fixed whitelist.

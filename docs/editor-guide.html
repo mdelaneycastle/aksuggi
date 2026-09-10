@@ -1,0 +1,956 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>AK Suggi — Website Editing Guide</title>
+<style>
+@font-face{font-family:Inter;src:url('../assets/fonts/Inter-Variable.ttf') format('truetype');font-weight:100 900;font-style:normal}
+
+@page{size:A4;margin:18mm 16mm}
+@page:first{margin:0}
+
+:root{
+  --paper:#f4f4f4; --ink:#101010; --muted:#626262; --line:#cdcdcd;
+  --box:#e7e7e7; --boxline:#d3d3d3;
+}
+*{box-sizing:border-box}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{
+  margin:0;background:#fff;color:var(--ink);
+  font:400 10.5pt/1.5 Inter,Arial,sans-serif;letter-spacing:-.011em;
+}
+
+/* ---------- page scaffolding ---------- */
+.sheet{break-after:page}
+.sheet:last-child{break-after:auto}
+h1,h2,h3,h4{margin:0;font-weight:750;letter-spacing:-.03em;line-height:1.06}
+p{margin:0 0 .62em}
+p:last-child{margin-bottom:0}
+strong{font-weight:680}
+code{font:600 9.4pt/1.4 "SF Mono",Menlo,Consolas,monospace;letter-spacing:0;
+  background:var(--box);padding:.1em .34em;border-radius:3px}
+
+/* ---------- cover ---------- */
+.cover{height:297mm;padding:24mm 20mm 18mm;display:flex;flex-direction:column;
+  background:var(--ink);color:var(--paper)}
+.cover .mark{font-size:76pt;font-weight:800;line-height:.79;letter-spacing:-.045em}
+.cover .mark span{display:block}
+.cover .rule{height:1px;background:rgba(244,244,244,.28);margin:14mm 0 8mm}
+.cover h1{font-size:27pt;letter-spacing:-.035em;max-width:118mm}
+.cover .sub{margin-top:5mm;font-size:11.5pt;color:#b9b9b9;max-width:112mm;line-height:1.5}
+.cover .spacer{flex:1}
+.cover .links{font-size:10pt;line-height:1.85}
+.cover .links b{display:block;font-size:8pt;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:#8e8e8e;margin-bottom:1.5mm}
+.cover .links a{color:var(--paper);text-decoration:none;border-bottom:1px solid rgba(244,244,244,.4)}
+.cover .foot{margin-top:9mm;font-size:8.5pt;color:#8e8e8e;letter-spacing:0}
+
+/* ---------- section headers ---------- */
+.sec{display:flex;align-items:baseline;gap:6mm;padding-bottom:3.5mm;
+  border-bottom:2px solid var(--ink);margin-bottom:5.4mm}
+.sec .n{font-size:26pt;font-weight:800;line-height:.8;letter-spacing:-.05em}
+.sec .t{font-size:16.5pt}
+.sec .t em{display:block;font-style:normal;font-size:9.5pt;font-weight:450;
+  color:var(--muted);letter-spacing:-.01em;margin-top:1.6mm;line-height:1.4}
+h3{font-size:12pt;margin:5.4mm 0 2.2mm}
+h3:first-child{margin-top:0}
+h4{font-size:10.5pt;margin:5mm 0 1.5mm}
+.lead{font-size:12.5pt;line-height:1.45;font-weight:450;letter-spacing:-.02em;
+  color:var(--ink);margin-bottom:4.4mm}
+
+/* ---------- blocks ---------- */
+.note,.warn,.why{border-left:3px solid var(--ink);padding:2.9mm 0 2.9mm 5mm;
+  margin:4mm 0;break-inside:avoid;font-size:10pt}
+.warn{border-left-color:#101010;background:var(--box);padding-right:5mm}
+.why{border-left-color:var(--line);color:var(--muted)}
+.note b,.warn b,.why b{display:block;font-size:7.6pt;font-weight:750;letter-spacing:.11em;
+  text-transform:uppercase;margin-bottom:1.6mm}
+.why b{color:var(--muted)}
+
+ol.steps{margin:0;padding:0;list-style:none;counter-reset:s}
+ol.steps>li{counter-increment:s;position:relative;padding-left:11mm;margin-bottom:3.5mm;
+  break-inside:avoid}
+ol.steps>li::before{content:counter(s);position:absolute;left:0;top:-1.2mm;
+  font-size:15pt;font-weight:800;letter-spacing:-.04em;color:var(--ink)}
+ol.steps>li b{font-weight:680}
+
+ul.plain{margin:0 0 .6em;padding-left:5mm;list-style:none}
+ul.plain li{position:relative;margin-bottom:1.7mm}
+ul.plain li::before{content:"";position:absolute;left:-5mm;top:2.1mm;
+  width:2.2mm;height:2.2mm;background:var(--ink)}
+
+table{width:100%;border-collapse:collapse;font-size:9.6pt;margin:3.2mm 0;break-inside:avoid}
+th{text-align:left;font-size:7.6pt;font-weight:750;letter-spacing:.1em;text-transform:uppercase;
+  padding:0 4mm 2mm 0;border-bottom:1.5px solid var(--ink);vertical-align:bottom}
+td{padding:2.15mm 4mm 2.15mm 0;border-bottom:1px solid var(--line);vertical-align:top}
+td:last-child,th:last-child{padding-right:0}
+.fld{font-weight:680;white-space:nowrap}
+.w40 td:first-child,.w40 th:first-child{width:40%}
+.w33 td:first-child,.w33 th:first-child{width:33%}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:7mm}
+.tag{display:inline-block;font-size:7.6pt;font-weight:750;letter-spacing:.09em;
+  text-transform:uppercase;background:var(--ink);color:var(--paper);
+  padding:.9mm 2.2mm;border-radius:2px;vertical-align:.4mm}
+figure{margin:0}
+figcaption{font-size:8.6pt;color:var(--muted);margin-top:2mm;line-height:1.4}
+.diagram{background:var(--box);border:1px solid var(--boxline);padding:4mm;break-inside:avoid}
+.diagram svg{display:block;width:100%;height:auto}
+/* Tall wireframes: constrain by HEIGHT, or a 320x424 viewBox renders 236mm high
+   at full width and pushes the section onto three pages. */
+.diagram.tall svg{width:auto;height:143mm;margin:0 auto}
+.diagram.wide svg{width:auto;height:43mm;margin:0 auto}
+.legend{font-size:9.2pt;line-height:1.5;margin-top:4mm;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.4mm 7mm}
+.legend div{display:flex;gap:2.6mm;break-inside:avoid}
+.legend i{flex:0 0 4.6mm;height:4.6mm;background:var(--ink);color:var(--paper);
+  border-radius:50%;font-style:normal;font-size:7.4pt;font-weight:750;
+  display:flex;align-items:center;justify-content:center;margin-top:.4mm}
+.legend b{font-weight:680}
+.legend span{color:var(--muted)}
+.cheat table{font-size:8.8pt;margin:3mm 0}
+.cheat td{padding:1.32mm 4mm 1.32mm 0}
+.cheat h3{margin:5mm 0 1.5mm}
+.cheat .warn{margin:4mm 0 0}
+.nums{display:grid;grid-template-columns:1fr 1fr;gap:2mm 7mm;margin:3mm 0 0}
+.nums div{border-top:1px solid var(--line);padding-top:1.6mm}
+.nums b{display:block;font-size:10.5pt;font-weight:750;letter-spacing:-.03em}
+.nums span{font-size:8.6pt;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<section class="sheet cover">
+  <div class="mark"><span>AK</span><span>SUGGI</span></div>
+  <div class="rule"></div>
+  <h1>Website Editing Guide</h1>
+  <p class="sub">Everything you need to change the words, photos and films on your
+    website — without touching any code, and without being able to break the design.</p>
+  <div class="spacer"></div>
+  <div class="links">
+    <b>Your editor</b>
+    <a href="https://app.pagescms.org/mdelaneycastle/aksuggi/main">app.pagescms.org/mdelaneycastle/aksuggi</a><br>
+    <b style="margin-top:6mm">Your live website</b>
+    <a href="https://marcdelaney.co.uk/aksuggi/">marcdelaney.co.uk/aksuggi</a>
+  </div>
+  <p class="foot">Keep this document. Section 16 is a one-page cheat sheet — print it
+    and keep it by your desk.</p>
+</section>
+
+<!-- ============ 1. 60 SECONDS ============ -->
+<section class="sheet">
+  <div class="sec"><div class="n">1</div><div class="t">The sixty-second version
+    <em>If you read nothing else, read this page. It is enough to change any piece of
+    wording on the website.</em></div></div>
+
+  <ol class="steps">
+    <li><b>Open your editor.</b> Go to the link on the cover of this guide and sign in
+      with the email address your invitation was sent to.</li>
+    <li><b>Pick where the words live.</b> Down the left-hand side you will see five
+      things. Pick the one that matches what you want to change — Section 4 of this guide
+      tells you which is which.</li>
+    <li><b>Click the box and type.</b> The page becomes a simple form. Click into a box,
+      change the words, exactly as you would in an email.</li>
+    <li><b>Press Save.</b> That is it. There is no publish step and nothing else to press.</li>
+    <li><b>Wait about a minute, then reload your website.</b> Your change is live. If it
+      is not there yet, wait another minute and reload again.</li>
+  </ol>
+
+  <div class="note"><b>The one habit worth having</b>
+    <p>Change <strong>one thing</strong>, press Save, then look at the website. Once you
+      trust it, do bigger edits. Every save is stored separately and any change can be
+      undone later, so nothing you do is permanent.</p></div>
+
+  <div class="why"><b>Why there is no publish button</b>
+    <p>Saving and publishing are the same action here. When you press Save, your website
+      is rebuilt automatically. That is why there is a short wait before you see the
+      change — the website is being reassembled, not just updated.</p></div>
+
+  <h3>The three questions everyone asks first</h3>
+  <table class="w40">
+    <tr><td class="fld">Can I break it?</td>
+      <td>Not the design. You are given boxes to type in and menus to pick from — there
+        is no way to type something that breaks the layout. See Section 14.</td></tr>
+    <tr><td class="fld">Do I need to know code?</td>
+      <td>No. You will never see any. If you can fill in a form, you can run this
+        website.</td></tr>
+    <tr><td class="fld">What if I make a mistake?</td>
+      <td>Type it back and press Save again. If you cannot fix it, every previous version
+        is kept and can be restored — see Section 15.</td></tr>
+  </table>
+</section>
+
+<!-- ============ 2. LOGGING IN ============ -->
+<section class="sheet">
+  <div class="sec"><div class="n">2</div><div class="t">Logging in
+    <em>You do not need a GitHub account, a password to remember, or any software
+    installed.</em></div></div>
+
+  <ol class="steps">
+    <li><b>Find your invitation email.</b> It comes from Pages CMS. If you cannot find
+      it, check your spam folder before asking for another.</li>
+    <li><b>Click the link in the email.</b> This proves who you are. You will not be
+      asked to create a password.</li>
+    <li><b>Bookmark the page you land on.</b> That is your editor, from now on.</li>
+  </ol>
+
+  <div class="note"><b>Signing in again later</b>
+    <p>Go to your bookmark, type the same email address, and a fresh sign-in link is
+      emailed to you. This is called a magic link — the email <em>is</em> the password,
+      which is why there is nothing to forget.</p></div>
+
+  <div class="warn"><b>Use the same email address every time</b>
+    <p>Your access is tied to one address. Signing in with a different one will not show
+      you the website, even if both inboxes belong to you.</p></div>
+
+  <h3>What you will see</h3>
+  <p>The editor has a list down the left-hand side and a form on the right. Clicking
+    something on the left opens its form on the right. There are no other screens, no
+    settings to configure, and nothing that can be switched on or off by accident.</p>
+</section>
+
+<!-- ============ 3. WHAT THE SITE IS MADE OF ============ -->
+<section class="sheet">
+  <div class="sec"><div class="n">3</div><div class="t">What the website is made of
+    <em>Five kinds of page. Knowing which is which tells you where to go to change
+    something.</em></div></div>
+
+  <div class="diagram">
+    <svg viewBox="0 0 320 168" role="img" aria-label="Map of the website's pages">
+      <style>
+        .bx{fill:#fff;stroke:#101010;stroke-width:1.1}
+        .bxs{fill:#fff;stroke:#cdcdcd;stroke-width:1}
+        .ln{stroke:#9a9a9a;stroke-width:1;fill:none}
+        .lb{font:600 7.4px Inter,Arial;fill:#101010;letter-spacing:-.1px}
+        .sm{font:500 6.2px Inter,Arial;fill:#626262}
+      .cheat table{font-size:9pt;margin:3mm 0}
+</style>
+      <rect class="bx" x="112" y="6" width="96" height="20" rx="2"/>
+      <text class="lb" x="160" y="18" text-anchor="middle">Home page</text>
+
+      <path class="ln" d="M160 26 V40 M40 40 H280 M40 40 V52 M160 40 V52 M280 40 V52"/>
+
+      <rect class="bx" x="6" y="52" width="68" height="20" rx="2"/>
+      <text class="lb" x="40" y="64" text-anchor="middle">Design</text>
+      <rect class="bx" x="126" y="52" width="68" height="20" rx="2"/>
+      <text class="lb" x="160" y="64" text-anchor="middle">Photo</text>
+      <rect class="bx" x="246" y="52" width="68" height="20" rx="2"/>
+      <text class="lb" x="280" y="64" text-anchor="middle">Film</text>
+
+      <path class="ln" d="M40 72 V84 M160 72 V84 M280 72 V84"/>
+
+      <rect class="bxs" x="6" y="84" width="68" height="14" rx="2"/>
+      <rect class="bxs" x="10" y="100" width="68" height="14" rx="2"/>
+      <rect class="bxs" x="14" y="116" width="68" height="14" rx="2"/>
+      <text class="sm" x="18" y="126" >6 projects</text>
+
+      <rect class="bxs" x="126" y="84" width="68" height="14" rx="2"/>
+      <rect class="bxs" x="130" y="100" width="68" height="14" rx="2"/>
+      <rect class="bxs" x="134" y="116" width="68" height="14" rx="2"/>
+      <text class="sm" x="138" y="126">6 projects</text>
+
+      <rect class="bxs" x="246" y="84" width="68" height="14" rx="2"/>
+      <rect class="bxs" x="250" y="100" width="68" height="14" rx="2"/>
+      <rect class="bxs" x="254" y="116" width="68" height="14" rx="2"/>
+      <text class="sm" x="258" y="126">7 projects</text>
+
+      <rect class="bxs" x="112" y="146" width="96" height="18" rx="2" stroke-dasharray="3 2"/>
+      <text class="sm" x="160" y="157" text-anchor="middle">Business card page — leave alone</text>
+    </svg>
+    <figcaption>Your website is one home page, three gallery pages, and nineteen project
+      pages behind them. The business card page is separate and is maintained by your
+      developer.</figcaption>
+  </div>
+
+  <h3>How they connect</h3>
+  <ul class="plain">
+    <li>The <b>home page</b> introduces you and links to the three gallery pages.</li>
+    <li>Each <b>gallery page</b> — Design, Photo, Film — shows a grid of cards.</li>
+    <li>Each card leads to a <b>project page</b>, where the full set of images lives.</li>
+  </ul>
+
+  <div class="why"><b>The useful consequence</b>
+    <p>A project's card on the gallery page and its own page are the same project in your
+      editor. Rename a project once and both update, because the card is built from the
+      project, not typed separately. The same goes for the Next project links at the
+      bottom of each project page — they look after themselves.</p></div>
+
+  <div class="note"><b>Nineteen projects, mostly empty</b>
+    <p>Eighteen of the nineteen are still placeholders reading "Project 01" and
+      "Project description to follow." That is deliberate — they were left blank rather
+      than filled with invented clients. Fill them in as real work is ready. Section 12
+      walks through one.</p></div>
+</section>
+
+<!-- ============ 4. THE FIVE THINGS ============ -->
+<section class="sheet">
+  <div class="sec"><div class="n">4</div><div class="t">The five things in your editor
+    <em>What each one controls, and when to reach for it.</em></div></div>
+
+  <table class="w33">
+    <tr><th>Called</th><th>Use it to change</th></tr>
+    <tr><td class="fld">Site-wide</td>
+      <td>Anything that appears on <strong>every</strong> page: your contact email, the
+        strapline at the top, the CONTACT NOW button, the big LET'S BRING YOUR VISION TO
+        LIFE block, and the footer.</td></tr>
+    <tr><td class="fld">Home page</td>
+      <td>The home page only — the big picture at the top, your intro line, the About
+        section, and the three panels lower down.</td></tr>
+    <tr><td class="fld">Design&nbsp;/&nbsp;Photo&nbsp;/&nbsp;Film headings</td>
+      <td>Just the headings and search-engine wording on those three gallery pages. Not
+        the projects themselves.</td></tr>
+    <tr><td class="fld">Projects</td>
+      <td>All nineteen projects — their titles, descriptions, details, images and films.
+        This is where you will spend most of your time.</td></tr>
+    <tr><td class="fld">Media</td>
+      <td>Your photo library. Upload pictures here, or upload them straight from an image
+        box while you are editing.</td></tr>
+  </table>
+
+  <div class="note"><b>The one that surprises people</b>
+    <p><b>Site-wide</b> is powerful. Your email address appears roughly a hundred and
+      forty times across the website — in every header, every footer, and every Contact
+      button. Change it in that one box and every one of them updates. You never need to
+      hunt for them.</p></div>
+
+  <h3>Which one do I want?</h3>
+  <table class="w40">
+    <tr><td class="fld">"My email has changed"</td><td>Site-wide</td></tr>
+    <tr><td class="fld">"I want a new picture at the top of the home page"</td><td>Home page → Hero image</td></tr>
+    <tr><td class="fld">"I want to describe myself differently"</td><td>Home page → About section</td></tr>
+    <tr><td class="fld">"This project needs a real name"</td><td>Projects → pick it → Project title</td></tr>
+    <tr><td class="fld">"I want to add a film"</td><td>Projects → pick it → Project gallery → YouTube video</td></tr>
+    <tr><td class="fld">"The photo is cropped badly on my phone"</td><td>Find that image → Shape on phones, and Keep this part in frame (phones)</td></tr>
+  </table>
+</section>
+
+<!-- ============ 5. NAMES: HOME ============ -->
+<section class="sheet">
+  <div class="sec"><div class="n">5</div><div class="t">The names of things: home page
+    <em>Designers gave these parts names. So does your editor. This page connects the
+    two.</em></div></div>
+
+  <div class="diagram tall">
+    <svg viewBox="0 0 320 424" role="img" aria-label="Labelled layout of the home page">
+      <style>
+        .f{fill:#fff;stroke:#cdcdcd;stroke-width:1}
+        .i{fill:#dcdcdc;stroke:#c6c6c6;stroke-width:1}
+        .t{fill:#c9c9c9}
+        .k{fill:#101010}
+        .c{fill:#101010}
+        .cn{font:700 7px Inter,Arial;fill:#f4f4f4}
+      .cheat table{font-size:9pt;margin:3mm 0}
+</style>
+
+      <!-- header -->
+      <rect class="f" x="0" y="0" width="320" height="16"/>
+      <rect class="t" x="8" y="6" width="62" height="4"/>
+      <rect class="k" x="238" y="4" width="44" height="8" rx="4"/>
+      <rect class="k" x="292" y="5" width="20" height="6"/>
+      <circle class="c" cx="308" cy="26" r="7"/><text class="cn" x="308" y="28.5" text-anchor="middle">1</text>
+
+      <!-- wordmark + intro -->
+      <rect class="k" x="8" y="30" width="150" height="26"/>
+      <rect class="k" x="8" y="60" width="196" height="26"/>
+      <circle class="c" cx="308" cy="58" r="7"/><text class="cn" x="308" y="60.5" text-anchor="middle">2</text>
+      <rect class="t" x="226" y="66" width="80" height="4"/>
+      <rect class="t" x="226" y="74" width="66" height="4"/>
+      <circle class="c" cx="308" cy="92" r="7"/><text class="cn" x="308" y="94.5" text-anchor="middle">3</text>
+
+      <!-- meta row -->
+      <rect class="t" x="8" y="104" width="72" height="4"/>
+      <rect class="t" x="232" y="104" width="74" height="4"/>
+      <circle class="c" cx="160" cy="106" r="7"/><text class="cn" x="160" y="108.5" text-anchor="middle">4</text>
+
+      <!-- hero -->
+      <rect class="i" x="8" y="118" width="304" height="86"/>
+      <circle class="c" cx="290" cy="196" r="7"/><text class="cn" x="290" y="198.5" text-anchor="middle">5</text>
+
+      <!-- about -->
+      <rect class="t" x="8" y="216" width="34" height="4"/>
+      <rect class="i" x="8" y="226" width="96" height="72"/>
+      <rect class="t" x="118" y="230" width="190" height="6"/>
+      <rect class="t" x="118" y="242" width="176" height="6"/>
+      <rect class="t" x="118" y="254" width="150" height="6"/>
+      <rect class="t" x="118" y="272" width="186" height="4"/>
+      <rect class="t" x="118" y="280" width="164" height="4"/>
+      <circle class="c" cx="290" cy="290" r="7"/><text class="cn" x="290" y="292.5" text-anchor="middle">6</text>
+
+      <!-- statement -->
+      <rect class="k" x="8" y="310" width="176" height="14"/>
+      <rect class="k" x="8" y="328" width="108" height="14"/>
+      <circle class="c" cx="308" cy="326" r="7"/><text class="cn" x="308" y="328.5" text-anchor="middle">7</text>
+
+      <!-- three panels -->
+      <rect class="i" x="8" y="354" width="96" height="38"/>
+      <rect class="t" x="8" y="396" width="40" height="4"/>
+      <rect class="i" x="112" y="354" width="96" height="38"/>
+      <rect class="t" x="112" y="396" width="40" height="4"/>
+      <rect class="i" x="216" y="354" width="96" height="38"/>
+      <rect class="t" x="216" y="396" width="40" height="4"/>
+      <circle class="c" cx="290" cy="412" r="7"/><text class="cn" x="290" y="414.5" text-anchor="middle">8</text>
+    </svg>
+
+    <div class="legend">
+      <div><i>1</i><span><b>Header.</b> Strapline, CONTACT NOW, menu. <em>Site-wide</em></span></div>
+      <div><i>2</i><span><b>Wordmark.</b> Your name, set large. Fixed.</span></div>
+      <div><i>3</i><span><b>Intro sentence.</b> <em>Home page → Intro sentence</em></span></div>
+      <div><i>4</i><span><b>Captions row.</b> <em>Left caption / Right caption</em></span></div>
+      <div><i>5</i><span><b>Hero image.</b> The big one. <em>Home page → Hero image</em></span></div>
+      <div><i>6</i><span><b>About section.</b> Label, portrait, headline, paragraph.</span></div>
+      <div><i>7</i><span><b>Statement.</b> DESIGN. CREATE. INSPIRE. Fixed — see Section 14.</span></div>
+      <div><i>8</i><span><b>The three panels.</b> <em>Home page → The three panels</em></span></div>
+    </div>
+    <figcaption>Below these sit the contact block and the footer, both of which come from
+      <b>Site-wide</b> and appear identically on every page.</figcaption>
+  </div>
+</section>
+
+<!-- ============ 6. NAMES: GALLERY ============ -->
+<section class="sheet">
+  <div class="sec"><div class="n">6</div><div class="t">The names of things: gallery pages
+    <em>The Design, Photo and Film pages. All three are built the same way.</em></div></div>
+
+  <div class="diagram">
+    <svg viewBox="0 0 320 300" role="img" aria-label="Labelled layout of a gallery page">
+      <style>
+        .f{fill:#fff;stroke:#cdcdcd;stroke-width:1}.i{fill:#dcdcdc;stroke:#c6c6c6;stroke-width:1}
+        .t{fill:#c9c9c9}.k{fill:#101010}.c{fill:#101010}
+        .cn{font:700 7px Inter,Arial;fill:#f4f4f4}
+      .cheat table{font-size:9pt;margin:3mm 0}
+</style>
+      <rect class="f" x="0" y="0" width="320" height="16"/>
+      <rect class="t" x="8" y="6" width="62" height="4"/>
+      <rect class="k" x="238" y="4" width="44" height="8" rx="4"/>
+      <rect class="k" x="292" y="5" width="20" height="6"/>
+
+      <rect class="k" x="8" y="30" width="92" height="18"/>
+      <circle class="c" cx="116" cy="39" r="7"/><text class="cn" x="116" y="41.5" text-anchor="middle">1</text>
+      <rect class="t" x="8" y="60" width="70" height="6"/>
+      <circle class="c" cx="94" cy="63" r="7"/><text class="cn" x="94" y="65.5" text-anchor="middle">2</text>
+
+      <rect class="i" x="8" y="80" width="148" height="84"/>
+      <rect class="t" x="8" y="170" width="26" height="4"/>
+      <rect class="k" x="8" y="178" width="62" height="6"/>
+      <rect class="t" x="120" y="170" width="36" height="4"/>
+      <circle class="c" cx="140" cy="122" r="7"/><text class="cn" x="140" y="124.5" text-anchor="middle">3</text>
+      <circle class="c" cx="94" cy="181" r="7"/><text class="cn" x="94" y="183.5" text-anchor="middle">4</text>
+
+      <rect class="i" x="164" y="80" width="148" height="84"/>
+      <rect class="t" x="164" y="170" width="26" height="4"/>
+      <rect class="k" x="164" y="178" width="62" height="6"/>
+
+      <rect class="i" x="8" y="200" width="148" height="84"/>
+      <rect class="t" x="8" y="290" width="26" height="4"/>
+      <rect class="i" x="164" y="200" width="148" height="84"/>
+      <rect class="t" x="164" y="290" width="26" height="4"/>
+    </svg>
+    <div class="legend">
+      <div><i>1</i><span><b>Page heading.</b> Design, Photo or Film. <em>Big page heading</em></span></div>
+      <div><i>2</i><span><b>Section heading.</b> "Selected Works". <em>Section heading</em></span></div>
+      <div><i>3</i><span><b>Gallery card.</b> One per project. <em>Projects → Gallery card</em></span></div>
+      <div><i>4</i><span><b>Card caption.</b> Category, then the project title.</span></div>
+    </div>
+    <figcaption>The cards are not typed on this page — each one is generated from a
+      project. To change a card, edit that project.</figcaption>
+  </div>
+
+  <div class="why"><b>Why the category label is not editable per card</b>
+    <p>The small word above each project title ("Design", "Photo", "Film") comes from
+      which gallery the project belongs to. It is not a separate box, because it can
+      never disagree with the page it is sitting on.</p></div>
+</section>
+
+<!-- ============ 7. NAMES: PROJECT ============ -->
+<section class="sheet">
+  <div class="sec"><div class="n">7</div><div class="t">The names of things: project pages
+    <em>Where the actual work goes. The gallery is built from stacked blocks.</em></div></div>
+
+  <div class="diagram tall">
+    <svg viewBox="0 0 320 386" role="img" aria-label="Labelled layout of a project page">
+      <style>
+        .f{fill:#fff;stroke:#cdcdcd;stroke-width:1}.i{fill:#dcdcdc;stroke:#c6c6c6;stroke-width:1}
+        .t{fill:#c9c9c9}.k{fill:#101010}.c{fill:#101010}
+        .cn{font:700 7px Inter,Arial;fill:#f4f4f4}
+        .pl{fill:#101010;opacity:.62}
+      .cheat table{font-size:9pt;margin:3mm 0}
+</style>
+      <rect class="f" x="0" y="0" width="320" height="16"/>
+      <rect class="t" x="8" y="6" width="62" height="4"/>
+      <rect class="k" x="292" y="5" width="20" height="6"/>
+
+      <rect class="k" x="8" y="28" width="66" height="16"/>
+      <circle class="c" cx="90" cy="36" r="7"/><text class="cn" x="90" y="38.5" text-anchor="middle">1</text>
+      <rect class="k" x="8" y="54" width="130" height="12"/>
+      <circle class="c" cx="154" cy="60" r="7"/><text class="cn" x="154" y="62.5" text-anchor="middle">2</text>
+
+      <rect class="t" x="8" y="78" width="150" height="4"/>
+      <rect class="t" x="8" y="86" width="126" height="4"/>
+      <circle class="c" cx="174" cy="82" r="7"/><text class="cn" x="174" y="84.5" text-anchor="middle">3</text>
+
+      <rect class="t" x="216" y="78" width="30" height="4"/>
+      <rect class="k" x="216" y="86" width="52" height="4"/>
+      <rect class="t" x="216" y="98" width="34" height="4"/>
+      <rect class="k" x="216" y="106" width="52" height="4"/>
+      <circle class="c" cx="290" cy="94" r="7"/><text class="cn" x="290" y="96.5" text-anchor="middle">4</text>
+
+      <rect class="i" x="8" y="124" width="304" height="74"/>
+      <circle class="c" cx="290" cy="190" r="7"/><text class="cn" x="290" y="192.5" text-anchor="middle">5</text>
+
+      <rect class="i" x="8" y="206" width="148" height="60"/>
+      <rect class="i" x="164" y="206" width="148" height="60"/>
+      <circle class="c" cx="160" cy="236" r="7"/><text class="cn" x="160" y="238.5" text-anchor="middle">6</text>
+
+      <rect class="t" x="150" y="278" width="162" height="4"/>
+      <rect class="t" x="182" y="286" width="130" height="4"/>
+      <circle class="c" cx="130" cy="282" r="7"/><text class="cn" x="130" y="284.5" text-anchor="middle">7</text>
+
+      <rect class="i" x="8" y="302" width="304" height="60"/>
+      <circle class="pl" cx="160" cy="332" r="13"/>
+      <path d="M155 326 l11 6 -11 6 z" fill="#f4f4f4"/>
+      <circle class="c" cx="290" cy="354" r="7"/><text class="cn" x="290" y="356.5" text-anchor="middle">8</text>
+
+      <rect class="t" x="8" y="376" width="60" height="5"/>
+      <rect class="t" x="252" y="376" width="60" height="5"/>
+      <circle class="c" cx="160" cy="378" r="7"/><text class="cn" x="160" y="380.5" text-anchor="middle">9</text>
+    </svg>
+    <div class="legend">
+      <div><i>1</i><span><b>Page heading.</b> The category. Comes automatically.</span></div>
+      <div><i>2</i><span><b>Project title.</b> <em>Projects → Project title</em></span></div>
+      <div><i>3</i><span><b>Project description.</b> The paragraph at the top.</span></div>
+      <div><i>4</i><span><b>Project details.</b> Client, Services and any rows you add.</span></div>
+      <div><i>5</i><span><b>One full-width image.</b> A gallery block.</span></div>
+      <div><i>6</i><span><b>Two images side by side.</b> A gallery block.</span></div>
+      <div><i>7</i><span><b>Pull quote.</b> A short line, set to the right.</span></div>
+      <div><i>8</i><span><b>YouTube video.</b> Still image plus a play button.</span></div>
+      <div><i>9</i><span><b>Back and Next links.</b> Automatic. Never typed.</span></div>
+    </div>
+    <figcaption>Items 5 to 8 are the four <b>gallery blocks</b>. A project gallery is any
+      number of them, in any order you like — see Section 12.</figcaption>
+  </div>
+</section>
+
+<!-- ============ 8. WORDING ============ -->
+<section class="sheet">
+  <div class="sec"><div class="n">8</div><div class="t">Changing wording
+    <em>The simplest job, and the one you will do most.</em></div></div>
+
+  <h3>Worked example: your email address</h3>
+  <ol class="steps">
+    <li>Click <b>Site-wide</b> in the list on the left.</li>
+    <li>Find the box labelled <b>Contact email address</b>.</li>
+    <li>Replace what is there with the new address.</li>
+    <li>Press <b>Save</b>, wait about a minute, and reload the website.</li>
+  </ol>
+  <p>Every CONTACT NOW button, every Contact menu item, every Contact me button and the
+    footer address have all changed — across all twenty-four pages.</p>
+
+  <h3>Wording that lives in more than one place</h3>
+  <table class="w40">
+    <tr><th>What you want to change</th><th>Where it is</th></tr>
+    <tr><td class="fld">The strapline at the very top</td><td>Site-wide → Header strapline</td></tr>
+    <tr><td class="fld">The CONTACT NOW button</td><td>Site-wide → Header button text</td></tr>
+    <tr><td class="fld">LET'S BRING YOUR VISION TO LIFE</td><td>Site-wide → Contact section → Headline lines</td></tr>
+    <tr><td class="fld">Footer labels and Back to top</td><td>Site-wide → Footer</td></tr>
+    <tr><td class="fld">"Available for freelance"</td><td>Home page → Right caption</td></tr>
+    <tr><td class="fld">Your intro line</td><td>Home page → Intro sentence</td></tr>
+    <tr><td class="fld">Your About paragraph</td><td>Home page → About section → Paragraph</td></tr>
+  </table>
+
+  <div class="note"><b>Headline lines, and why they are a list</b>
+    <p>The big contact headline is three separate lines that stack. They are three boxes
+      rather than one so the line breaks always fall where the designer intended. Add a
+      fourth line if you want, or remove one — the layout copes.</p></div>
+
+  <div class="why"><b>About the two "Search-engine description" boxes</b>
+    <p>These do not appear on the page itself. They are the grey summary line Google shows
+      beneath your page title in its results. Around 150 characters is right. If you leave
+      one alone, nothing breaks.</p></div>
+
+  <div class="warn"><b>Typing symbols is fine</b>
+    <p>Ampersands, quotes and accented characters are all handled for you. Type
+      "Fish &amp; Chips" and it appears correctly. You cannot accidentally type something
+      that damages the page.</p></div>
+</section>
+
+<!-- ============ 9. SWAPPING A PHOTO ============ -->
+<section class="sheet">
+  <div class="sec"><div class="n">9</div><div class="t">Swapping a photo
+    <em>Every image on the website works exactly the same way, wherever it appears.</em></div></div>
+
+  <ol class="steps">
+    <li><b>Find the image.</b> Use Section 5, 6 or 7 to work out what it is called, then
+      go to that place in your editor.</li>
+    <li><b>Click the image box and choose your file.</b> You can drag a photo onto it, or
+      pick one you have uploaded before.</li>
+    <li><b>Fill in "Describe the image".</b> One short sentence saying what is in the
+      photo. This is not optional — see the note below.</li>
+    <li><b>Check the two shapes and two crops.</b> Section 10 explains these. If you are
+      unsure, leave them as they are and look at the result first.</li>
+    <li><b>Press Save</b>, wait a minute, reload.</li>
+  </ol>
+
+  <div class="note"><b>Why "Describe the image" matters</b>
+    <p>It is read aloud to blind visitors using screen readers, and it is what appears if
+      the photo ever fails to load. Google reads it too. Write what the picture actually
+      shows — "AK photographing a model against a white wall", not "photo" or "image1".</p>
+    <p style="margin-top:.5em">The placeholders currently say things like "Placeholder for
+      Design Project 01". Replacing those is one of the most valuable things you can do.</p></div>
+
+  <h3>The six boxes you get for every image</h3>
+  <table class="w40">
+    <tr><th>Box</th><th>What it does</th></tr>
+    <tr><td class="fld">Image</td><td>The photo file itself.</td></tr>
+    <tr><td class="fld">Describe the image</td><td>One sentence, for screen readers and search engines.</td></tr>
+    <tr><td class="fld">Shape on desktop</td><td>The frame shape on a computer. Wide, Square or Tall.</td></tr>
+    <tr><td class="fld">Shape on phones</td><td>The frame shape on a phone. Often different by design.</td></tr>
+    <tr><td class="fld">Keep this part in frame (desktop)</td><td>Which part survives the crop on a computer.</td></tr>
+    <tr><td class="fld">Keep this part in frame (phones)</td><td>The same, for phones.</td></tr>
+  </table>
+
+  <div class="why"><b>Why there are separate settings for phones</b>
+    <p>A wide photo that looks great on a laptop is a thin strip on a phone. Most images
+      on this website are set to Wide on desktop and Tall on phones, so they stay generous
+      on a small screen. That is why there are two of each box, not one.</p></div>
+</section>
+
+<!-- ============ 10. SHAPES AND CROPPING ============ -->
+<section class="sheet">
+  <div class="sec"><div class="n">10</div><div class="t">Shapes and cropping
+    <em>The only part of this guide worth reading twice.</em></div></div>
+
+  <p class="lead">Your photo is never squashed or stretched. It is placed in a frame and
+    the edges are trimmed away. These two settings decide the frame's shape, and which
+    part of the photo survives.</p>
+
+  <h3>Shape — the frame</h3>
+  <div class="diagram wide">
+    <svg viewBox="0 0 320 124" role="img" aria-label="The three frame shapes">
+      <style>
+        .ph{fill:#dcdcdc;stroke:#c6c6c6}.fr{fill:none;stroke:#101010;stroke-width:1.6}
+        .lb{font:600 7.4px Inter,Arial;fill:#101010}.sb{font:500 6.4px Inter,Arial;fill:#626262}
+      </style>
+      <rect class="ph" x="8" y="10" width="80" height="45"/><rect class="fr" x="8" y="10" width="80" height="45"/>
+      <rect class="ph" x="120" y="10" width="60" height="60"/><rect class="fr" x="120" y="10" width="60" height="60"/>
+      <rect class="ph" x="212" y="10" width="56" height="70"/><rect class="fr" x="212" y="10" width="56" height="70"/>
+
+      <text class="lb" x="8" y="92">Wide</text>
+      <text class="sb" x="8" y="102">16:9 — landscape</text>
+      <text class="sb" x="8" y="112">The default for most</text>
+      <text class="sb" x="8" y="121">images on a computer.</text>
+
+      <text class="lb" x="120" y="92">Square</text>
+      <text class="sb" x="120" y="102">1:1 — equal sides</text>
+      <text class="sb" x="120" y="112">Used for the paired</text>
+      <text class="sb" x="120" y="121">images in projects.</text>
+
+      <text class="lb" x="212" y="92">Tall</text>
+      <text class="sb" x="212" y="102">4:5 — portrait</text>
+      <text class="sb" x="212" y="112">The usual choice</text>
+      <text class="sb" x="212" y="121">on phones.</text>
+    </svg>
+  </div>
+
+  <h3>Keep this part in frame — the crop</h3>
+  <p>Same photo, same frame, three different choices. The dotted line is the whole photo;
+    the solid box is what visitors see.</p>
+  <div class="diagram wide">
+    <svg viewBox="0 0 320 128" role="img" aria-label="How crop position changes what is visible">
+      <style>
+        .full{fill:#ececec;stroke:#bdbdbd;stroke-dasharray:3 2}
+        .head{fill:#101010;opacity:.28}
+        .body{fill:#101010;opacity:.16}
+        .fr2{fill:none;stroke:#101010;stroke-width:1.8}
+        .lb2{font:600 7.2px Inter,Arial;fill:#101010}
+        .sb2{font:500 6.3px Inter,Arial;fill:#626262}
+        .bad{font:700 6.6px Inter,Arial;fill:#101010}
+      .cheat table{font-size:9pt;margin:3mm 0}
+</style>
+      <!-- centre -->
+      <rect class="full" x="14" y="8" width="68" height="86"/>
+      <circle class="head" cx="48" cy="28" r="11"/><rect class="body" x="34" y="41" width="28" height="46" rx="6"/>
+      <rect class="fr2" x="14" y="37" width="68" height="38"/>
+      <text class="lb2" x="14" y="108">Centre</text>
+      <text class="sb2" x="14" y="119">Head is cut off.</text>
+
+      <!-- upper middle -->
+      <rect class="full" x="126" y="8" width="68" height="86"/>
+      <circle class="head" cx="160" cy="28" r="11"/><rect class="body" x="146" y="41" width="28" height="46" rx="6"/>
+      <rect class="fr2" x="126" y="14" width="68" height="38"/>
+      <text class="lb2" x="126" y="108">Upper middle</text>
+      <text class="sb2" x="126" y="119">Face kept. The right choice here.</text>
+
+      <!-- bottom -->
+      <rect class="full" x="238" y="8" width="68" height="86"/>
+      <circle class="head" cx="272" cy="28" r="11"/><rect class="body" x="258" y="41" width="28" height="46" rx="6"/>
+      <rect class="fr2" x="238" y="56" width="68" height="38"/>
+      <text class="lb2" x="238" y="108">Bottom</text>
+      <text class="sb2" x="238" y="119">Only the body.</text>
+    </svg>
+    <figcaption>Choose the part that must not be lost. For anything with a person in it,
+      <b>Upper middle (good for faces)</b> is usually right.</figcaption>
+  </div>
+
+  <div class="note"><b>Your six choices</b>
+    <p>Centre · Upper middle (good for faces) · Top · Bottom · Left · Right. Every image on
+      the website is currently set to Centre, so if a new photo looks badly cropped, this
+      is the first box to try.</p></div>
+
+  <div class="why"><b>Why you cannot type an exact position</b>
+    <p>These are a fixed menu rather than a free box on purpose. It means you can never
+      enter something the design cannot handle. If you genuinely need a crop that none of
+      the six give you, that is a two-minute job for your developer.</p></div>
+</section>
+
+<!-- ============ 11. FILM ============ -->
+<section class="sheet">
+  <div class="sec"><div class="n">11</div><div class="t">Changing a film
+    <em>Every film on this website is a YouTube link. You never upload video.</em></div></div>
+
+  <ol class="steps">
+    <li><b>Put the film on YouTube</b> and copy its link from the address bar, or use
+      YouTube's Share button.</li>
+    <li>In your editor, open <b>Projects</b>, choose the project, and find the
+      <b>YouTube video</b> block in its <b>Project gallery</b>.</li>
+    <li><b>Paste the link into "YouTube link".</b> Paste the whole thing — you do not need
+      to trim it or find an ID.</li>
+    <li><b>Fill in "Video title".</b> The film's name. Used by screen readers and as the
+      player's title.</li>
+    <li><b>Upload a still into "Still image".</b> This is the picture visitors see before
+      they press play. See the note below.</li>
+    <li><b>Save</b>, wait a minute, then reload and press play to check it.</li>
+  </ol>
+
+  <h3>Links that work</h3>
+  <p>All of these are fine — paste whichever you have:</p>
+  <table class="w40">
+    <tr><td><code>youtube.com/watch?v=q38Be7Plti4</code></td><td>The normal address bar link</td></tr>
+    <tr><td><code>youtu.be/q38Be7Plti4?si=…</code></td><td>The Share button link</td></tr>
+    <tr><td><code>youtube.com/shorts/…</code></td><td>A Short</td></tr>
+    <tr><td><code>youtube.com/live/…</code></td><td>A stream</td></tr>
+    <tr><td><code>…watch?v=q38Be7Plti4&amp;t=42s</code></td><td>A link with a start time — the extra bits are ignored</td></tr>
+  </table>
+  <p>If you paste something that is not a YouTube link, the block quietly shows just your
+    still image with no play button, rather than showing visitors a broken player.</p>
+
+  <div class="note"><b>Why you choose the still yourself</b>
+    <p>Nothing at all loads from YouTube until a visitor actually presses play. That keeps
+      your site fast and means Google is not tracking your visitors on your behalf. The
+      trade-off is that YouTube's automatic thumbnail is not available — so you pick the
+      frame, which is better anyway, because you can choose a good one.</p>
+    <p style="margin-top:.5em">Export a frame from the film at around 1280&nbsp;&times;&nbsp;720
+      and upload it as the Still image.</p></div>
+
+  <div class="warn"><b>Adding a film to a project that has none</b>
+    <p>Every project can have a film — not just the Film ones. In the Project gallery,
+      add a block and choose <b>YouTube video</b>. It works identically anywhere.</p></div>
+</section>
+
+<!-- ============ 12. FILLING IN A PROJECT ============ -->
+<section class="sheet">
+  <div class="sec"><div class="n">12</div><div class="t">Filling in a project page
+    <em>Turning "Project 01" into a real piece of work.</em></div></div>
+
+  <ol class="steps">
+    <li><b>Open Projects</b> and click the one you want. They are listed by title, so the
+      empty ones still read "Project 01" through "Project 06".</li>
+    <li><b>Project title.</b> The real name. This also updates its card on the gallery
+      page and the tab title in the browser — you only type it once.</li>
+    <li><b>Project description.</b> The paragraph at the top of the page. Replace
+      "Project description to follow."</li>
+    <li><b>Project details.</b> Rows of label and value. Two rows are there now, Client
+      and Services, both saying "To be added". Change them, add rows such as Year or
+      Role, or remove them entirely — the layout adjusts to any number.</li>
+    <li><b>Gallery card.</b> The image representing this project on the Design, Photo or
+      Film page. Often your strongest shot rather than the first one.</li>
+    <li><b>Project gallery.</b> The images down the page. Add, remove and drag blocks into
+      any order you like.</li>
+    <li><b>Save</b>, wait a minute, reload the gallery page and the project page.</li>
+  </ol>
+
+  <h3>The four gallery blocks</h3>
+  <table class="w33">
+    <tr><th>Block</th><th>Use it for</th></tr>
+    <tr><td class="fld">One full-width image</td>
+      <td>A single picture across the full width. Your best shots.</td></tr>
+    <tr><td class="fld">Two images side by side</td>
+      <td>A pair, shown together on a computer and stacked on a phone. Good for
+        before-and-after or details.</td></tr>
+    <tr><td class="fld">Pull quote</td>
+      <td>A short line of text set to the right — a client quote or a note about the work.
+        A sentence or two at most.</td></tr>
+    <tr><td class="fld">YouTube video</td>
+      <td>A film, as described in Section 11.</td></tr>
+  </table>
+
+  <div class="note"><b>Reordering is drag and drop</b>
+    <p>Blocks can be dragged up and down. Any order works, and any mixture works — six
+      full-width images, or a film followed by three pairs, or a single image and a quote.
+      The design handles all of it, because each block is styled independently.</p></div>
+
+  <div class="why"><b>What updates by itself</b>
+    <p>The project's gallery card, its position on the gallery page, its browser tab
+      title, and the "Next project" link at the foot of the page. None of these are typed
+      anywhere. This used to be four separate edits kept in step by hand.</p></div>
+</section>
+
+<!-- ============ 13. PHOTO SIZES ============ -->
+<section class="sheet">
+  <div class="sec"><div class="n">13</div><div class="t">Photo sizes
+    <em>One number to remember.</em></div></div>
+
+  <p class="lead">Export photos about <strong>2,000 to 2,500 pixels wide</strong> before
+    uploading. JPG or WebP.</p>
+
+  <p>A photo straight off a modern phone is often 4,000 pixels wide and 8 megabytes. Your
+    website never displays it larger than about 1,500 pixels, so the extra is downloaded
+    by every visitor and then thrown away. On a phone on mobile data, that is the
+    difference between a site that feels instant and one that feels slow.</p>
+
+  <table class="w40">
+    <tr><th></th><th></th></tr>
+    <tr><td class="fld">Full-width images</td><td>2,000–2,500 pixels wide</td></tr>
+    <tr><td class="fld">Portraits and paired images</td><td>1,200–1,600 pixels wide</td></tr>
+    <tr><td class="fld">Film stills</td><td>1,280 &times; 720</td></tr>
+    <tr><td class="fld">Format</td><td>JPG, or WebP if your software offers it</td></tr>
+  </table>
+
+  <div class="note"><b>If you are not sure how to resize</b>
+    <p>On a Mac, open the photo in Preview, then Tools → Adjust Size, and set the width to
+      2400. On a phone, most photo apps offer a "Medium" or "Large" option when sharing,
+      rather than "Actual Size".</p></div>
+
+  <div class="warn"><b>What happens if you upload a huge one anyway</b>
+    <p>Nothing breaks and the photo appears correctly. The page is simply heavier than it
+      needs to be. It is worth getting right, but it is not worth losing sleep over.</p></div>
+</section>
+
+<!-- ============ 14. CAN'T BREAK ============ -->
+<section class="sheet">
+  <div class="sec"><div class="n">14</div><div class="t">What you cannot break — and what to leave alone
+    <em>Worth reading once, so you can edit with confidence.</em></div></div>
+
+  <h3>Things that are genuinely impossible</h3>
+  <ul class="plain">
+    <li><b>You cannot break the layout.</b> Shapes and crops are fixed menus, not typing
+      boxes. There is no way to choose a value the design cannot handle.</li>
+    <li><b>You cannot take the website offline.</b> If a save ever fails to build, the
+      previous version stays live. The worst case is that your change does not appear.</li>
+    <li><b>You cannot lose an old version.</b> Every save is kept, forever, individually.</li>
+    <li><b>You cannot damage the styling.</b> Colours, fonts, spacing and the scrolling
+      effects are not exposed to you at all.</li>
+    <li><b>You cannot delete a page.</b> Adding and removing project pages is switched
+      off deliberately.</li>
+  </ul>
+
+  <h3>Things to leave to your developer</h3>
+  <table class="w40">
+    <tr><td class="fld">The business card page</td>
+      <td>The page behind your NFC card. It has its own design and is tied to a contact
+        file that has to match it. Ask, do not edit.</td></tr>
+    <tr><td class="fld">DESIGN. CREATE. INSPIRE.</td>
+      <td>The huge statement on the home page. It contains typographic instructions about
+        where the line may break, so it is not offered as an editable box.</td></tr>
+    <tr><td class="fld">Your AK SUGGI wordmark</td>
+      <td>Your logo, effectively. Fixed in the design.</td></tr>
+    <tr><td class="fld">Adding or deleting whole projects</td>
+      <td>Currently switched off. It can be switched on in one line whenever you want it —
+        just ask.</td></tr>
+    <tr><td class="fld">The Instagram link</td>
+      <td>Set in the code at the moment, so it needs a developer. Worth asking to have it
+        moved into your editor.</td></tr>
+  </table>
+
+  <div class="why"><b>The thinking behind all this</b>
+    <p>You have been given every box that changes what visitors read and see, and none of
+      the boxes that change how the site is built. That is why you can edit freely without
+      needing to be careful.</p></div>
+</section>
+
+<!-- ============ 15. TROUBLESHOOTING ============ -->
+<section class="sheet">
+  <div class="sec"><div class="n">15</div><div class="t">When something goes wrong
+    <em>In order of how often it actually happens.</em></div></div>
+
+  <h4>My change has not appeared</h4>
+  <p>Wait two minutes and reload. If it still is not there, force your browser to fetch a
+    fresh copy: <b>Cmd&nbsp;+&nbsp;Shift&nbsp;+&nbsp;R</b> on a Mac,
+    <b>Ctrl&nbsp;+&nbsp;Shift&nbsp;+&nbsp;R</b> on Windows. Your browser keeps a local
+    copy of the site to make it fast, and sometimes shows you that instead.</p>
+
+  <h4>I uploaded the wrong photo</h4>
+  <p>Upload the right one over it and Save. No need to delete anything.</p>
+
+  <h4>The photo is cropped badly</h4>
+  <p>Section 10. Try <b>Keep this part in frame</b> first, then <b>Shape</b>. Remember to
+    check the phone settings as well as the desktop ones.</p>
+
+  <h4>It looks wrong on my phone but fine on my laptop</h4>
+  <p>Almost always the two phone-specific boxes: <b>Shape on phones</b> and
+    <b>Keep this part in frame (phones)</b>. They are separate settings by design.</p>
+
+  <h4>I edited the wrong project</h4>
+  <p>Type the original wording back and Save. If you cannot remember it, ask your
+    developer to restore that version — it takes a minute and nothing is lost.</p>
+
+  <h4>The film will not play</h4>
+  <p>Check the film is public on YouTube, not private or unlisted. Then check the link is
+    pasted in full. If the play button has vanished entirely, the link was not recognised
+    as a YouTube address — paste it again from the address bar.</p>
+
+  <h4>I want it back exactly how it was</h4>
+  <p>Every save is stored separately and any one can be restored. Tell your developer
+    roughly when the change happened and what it was.</p>
+
+  <div class="note"><b>What to send when you ask for help</b>
+    <p>The address of the page, what you expected, and what you got instead. A screenshot
+      showing the whole browser window is worth several paragraphs.</p></div>
+</section>
+
+<!-- ============ 16. CHEAT SHEET ============ -->
+<section class="sheet cheat">
+  <div class="sec"><div class="n">16</div><div class="t">Cheat sheet
+    <em>Print this page on its own and keep it by your desk.</em></div></div>
+
+  <h3>The routine, every time</h3>
+  <p style="font-size:10.8pt;font-weight:600;letter-spacing:-.025em">
+    Open the editor &nbsp;→&nbsp; pick a section &nbsp;→&nbsp; change one thing
+    &nbsp;→&nbsp; Save &nbsp;→&nbsp; wait a minute &nbsp;→&nbsp; reload</p>
+
+  <h3>Where everything lives</h3>
+  <table class="w40">
+    <tr><th>I want to change…</th><th>Go to</th></tr>
+    <tr><td>My email address</td><td class="fld">Site-wide</td></tr>
+    <tr><td>The strapline at the top of every page</td><td class="fld">Site-wide</td></tr>
+    <tr><td>LET'S BRING YOUR VISION TO LIFE</td><td class="fld">Site-wide → Contact section</td></tr>
+    <tr><td>Anything in the footer</td><td class="fld">Site-wide → Footer</td></tr>
+    <tr><td>The big picture on the home page</td><td class="fld">Home page → Hero image</td></tr>
+    <tr><td>My intro line</td><td class="fld">Home page → Intro sentence</td></tr>
+    <tr><td>"Available for freelance"</td><td class="fld">Home page → Right caption</td></tr>
+    <tr><td>My About paragraph or portrait</td><td class="fld">Home page → About section</td></tr>
+    <tr><td>The three panels lower down</td><td class="fld">Home page → The three panels</td></tr>
+    <tr><td>A gallery page heading</td><td class="fld">Design / Photo / Film headings</td></tr>
+    <tr><td>A project's name or description</td><td class="fld">Projects → the project</td></tr>
+    <tr><td>Client, Services, Year, Role</td><td class="fld">Projects → Project details</td></tr>
+    <tr><td>How a project looks on the gallery page</td><td class="fld">Projects → Gallery card</td></tr>
+    <tr><td>The images down a project page</td><td class="fld">Projects → Project gallery</td></tr>
+    <tr><td>A film</td><td class="fld">Projects → Project gallery → YouTube video</td></tr>
+    <tr><td>A badly cropped photo</td><td class="fld">Keep this part in frame</td></tr>
+  </table>
+
+  <h3>Numbers worth remembering</h3>
+  <div class="nums">
+    <div><b>2,000&ndash;2,500 px</b><span>photo width before uploading</span></div>
+    <div><b>1,280 &times; 720</b><span>film stills</span></div>
+    <div><b>~1 minute</b><span>wait after saving</span></div>
+    <div><b>Cmd/Ctrl + Shift + R</b><span>force a fresh copy</span></div>
+  </div>
+
+  <div class="warn"><b>The two things to leave alone</b>
+    <p>The business card page, and the big DESIGN. CREATE. INSPIRE. statement. Everything
+      else on the website is yours to change.</p></div>
+</section>
+
+</body>
+</html>
