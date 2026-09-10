@@ -126,7 +126,7 @@ EDITING A PROJECT
 
 1. Open a file such as projects/design-01.html in a plain-text/code editor.
 2. Change 'Project 01' in both <title> and the heading with id="project-title".
-3. Replace 'Project description to follow.' and the four 'To be added' fields.
+3. Replace 'Project description to follow.' and the Client and Services fields.
 4. Replace gallery images and alternative text, and adjust image shapes.
 5. Replace 'Project details to follow.' or remove that entire <p> element.
 6. Update the matching title and cover image in design.html.
