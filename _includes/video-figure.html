@@ -1,0 +1,68 @@
+{%- comment -%}
+Lazy YouTube facade: a local poster still plus a play button. No iframe, and no
+request to YouTube, until the visitor presses play - assets/js/site.js:171-188
+swaps the iframe in from data-video. The <noscript> iframe is the no-JS fallback.
+
+  block - a gallery block with video_url, video_title and poster
+  eager - true when this is the first item on the page
+
+The editor pastes a YouTube link; the 11-character ID is extracted here so they
+never have to know what a video ID is. If extraction fails, this degrades to a
+plain poster image with no play button - a typo can never yield a broken player.
+
+Variables are vid_-prefixed: Liquid assigns are global and would otherwise
+clobber the caller's variables.
+{%- endcomment -%}
+{%- assign vid_b = include.block -%}
+{%- assign vid_raw = vid_b.video_url | strip -%}
+{%- if vid_raw contains '/shorts/' -%}
+{%- assign vid_id = vid_raw | split: '/shorts/' | last -%}
+{%- elsif vid_raw contains '/embed/' -%}
+{%- assign vid_id = vid_raw | split: '/embed/' | last -%}
+{%- elsif vid_raw contains '/live/' -%}
+{%- assign vid_id = vid_raw | split: '/live/' | last -%}
+{%- elsif vid_raw contains 'youtu.be/' -%}
+{%- assign vid_id = vid_raw | split: 'youtu.be/' | last -%}
+{%- elsif vid_raw contains 'v=' -%}
+{%- assign vid_id = vid_raw | split: 'v=' | last -%}
+{%- else -%}
+{%- assign vid_id = vid_raw -%}
+{%- endif -%}
+{%- assign vid_id = vid_id | split: '&' | first | split: '?' | first | split: '#' | first | split: '/' | first | slice: 0, 11 -%}
+{%- assign vid_p = vid_b.poster -%}
+{%- assign vid_lead = vid_p.src | slice: 0, 1 -%}
+{%- if vid_lead == '/' -%}
+{%- assign vid_src = vid_p.src | slice: 1, 4096 -%}
+{%- else -%}
+{%- assign vid_src = vid_p.src -%}
+{%- endif -%}
+{%- comment -%}
+Validate before emitting a player. A length check alone is not enough: junk text
+can slice to exactly 11 characters ("totally not a youtube link" -> "totally not").
+So require 11 chars, no spaces, and - for anything longer than a bare ID - that
+the pasted text actually looks like a YouTube URL.
+{%- endcomment -%}
+{%- assign vid_ok = false -%}
+{%- if vid_id.size == 11 -%}
+{%- unless vid_id contains ' ' -%}
+{%- if vid_raw.size == 11 -%}
+{%- assign vid_ok = true -%}
+{%- elsif vid_raw contains 'youtu' -%}
+{%- assign vid_ok = true -%}
+{%- endif -%}
+{%- endunless -%}
+{%- endif -%}
+{%- if vid_ok -%}
+{%- if include.eager -%}
+{%- assign vid_load = 'eager' -%}{%- assign vid_prio = 'fetchpriority="high"' -%}
+{%- else -%}
+{%- assign vid_load = 'lazy' -%}{%- assign vid_prio = '' -%}
+{%- endif -%}
+<figure class="media video-embed" data-shape="{{ vid_p.shape }}" data-mobile-shape="{{ vid_p.mobile_shape }}" data-video="{{ vid_id }}" data-video-title="{{ vid_b.video_title | escape }}" style="--position: {{ vid_p.position }}; --mobile-position: {{ vid_p.mobile_position }}">
+  <img src="{{ page.root }}{{ vid_src }}" alt="{{ vid_p.alt | escape }}" width="{{ vid_p.width }}" height="{{ vid_p.height }}" loading="{{ vid_load }}" {{ vid_prio }} decoding="async">
+  <button class="video-play" type="button"><span aria-hidden="true">▶</span><span class="sr-only">Play {{ page.title | escape }}</span></button>
+  <noscript><iframe src="https://www.youtube-nocookie.com/embed/{{ vid_id }}" title="{{ vid_b.video_title | escape }}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></noscript>
+</figure>
+{%- else -%}
+{%- include figure.html image=vid_b.poster eager=include.eager -%}
+{%- endif -%}

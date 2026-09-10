@@ -1,0 +1,21 @@
+design:
+  label: Design
+  page_title: Design
+  section_title: Selected Works
+  head_title: Design — Selected Works | AK Suggi
+  head_description: Selected design projects by AK Suggi.
+  back_label: ← All design work
+photo:
+  label: Photo
+  page_title: Photo
+  section_title: Selected Works
+  head_title: Photo — Selected Works | AK Suggi
+  head_description: Selected photo projects by AK Suggi.
+  back_label: ← All photo work
+film:
+  label: Film
+  page_title: Film
+  section_title: Selected Works
+  head_title: Film — Selected Works | AK Suggi
+  head_description: Selected film projects by AK Suggi.
+  back_label: ← All film work

@@ -1,0 +1,34 @@
+---
+layout: base
+---
+{%- assign cat = site.data.categories[page.category] -%}
+{%- comment -%}
+Build the bottom navigation up front so it emits no stray whitespace mid-page.
+The featured project uses a single "back" button; the numbered projects form a
+cycle (design-06 -> design-01) derived from `order`, so nothing needs hand-syncing
+when a project is added, removed or reordered. The featured project is excluded
+from the cycle by filtering on nav_style.
+{%- endcomment -%}
+{%- if page.nav_style == 'back' -%}
+{%- capture nav -%}<nav class="project-back" aria-label="Project navigation"><a class="button" href="{{ page.root }}{{ page.category }}.html">{{ page.back_label | escape }}</a></nav>{%- endcapture -%}
+{%- else -%}
+{%- assign sibs = site.projects | where: "category", page.category | where: "nav_style", "pagination" | sort: "order" -%}
+{%- assign idx = 0 -%}
+{%- for s in sibs -%}{%- if s.url == page.url -%}{%- assign idx = forloop.index0 -%}{%- endif -%}{%- endfor -%}
+{%- assign nxt_i = idx | plus: 1 | modulo: sibs.size -%}
+{%- assign nxt = sibs[nxt_i] -%}
+{%- assign nxt_slug = nxt.url | split: '/' | last -%}
+{%- capture nav -%}<nav class="project-pagination" aria-label="Project navigation"><a href="{{ page.root }}{{ page.category }}.html">{{ cat.back_label | escape }}</a><a href="{{ nxt_slug }}">{{ site.data.site.next_project | escape }}</a></nav>{%- endcapture -%}
+{%- endif -%}
+<h1 class="page-title">{{ cat.page_title | escape }}</h1>
+<article aria-labelledby="project-title">
+  <h2 class="project-heading" id="project-title">{{ page.title | escape }}</h2>
+  <div class="project-intro">
+    <p class="project-description">{{ page.description | escape }}</p>
+    <dl class="project-meta">{% for m in page.meta %}<div><dt>{{ m.label | escape }}</dt><dd>{{ m.value | escape }}</dd></div>{% endfor %}</dl>
+  </div>
+  <div class="project-gallery">
+{% for b in page.gallery %}    {% if b.type == 'single' %}{% include figure.html image=b.image eager=forloop.first %}{% elsif b.type == 'pair' %}<div class="image-pair">{% include figure.html image=b.left %}{% include figure.html image=b.right %}</div>{% elsif b.type == 'note' %}<p class="project-note">{{ b.text | escape }}</p>{% elsif b.type == 'video' %}{% include video-figure.html block=b eager=forloop.first %}{% endif %}
+{% endfor %}  </div>
+</article>
+{{ nav }}

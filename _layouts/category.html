@@ -1,0 +1,10 @@
+---
+layout: base
+---
+{%- assign cat = site.data.categories[page.category] -%}
+{%- assign items = site.projects | where: "category", page.category | sort: "order" -%}
+<h1 class="page-title">{{ cat.page_title | escape }}</h1><section aria-labelledby="selected-title"><h2 class="section-title" id="selected-title">{{ cat.section_title | escape }}</h2><div class="works-list">{% for p in items %}
+<article><a class="work-link" href="{{ p.url | slice: 1, 4096 }}">
+  {% include figure.html image=p.thumbnail eager=forloop.first %}
+  <div class="work-caption"><div><span class="label">{{ cat.label | escape }}</span><h3 class="title">{{ p.title | escape }}</h3></div><span class="explore">{{ site.data.site.explore | escape }}</span></div>
+</a></article>{% endfor %}</div></section>

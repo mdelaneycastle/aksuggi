@@ -1,0 +1,33 @@
+title: AK Suggi
+
+# Deliberately empty: every link in this site is relative, so the site works at
+# /aksuggi/, at a domain root, and from a file:// folder. Never emit site.baseurl.
+baseurl: ""
+url: ""
+
+collections:
+  projects:
+    output: true
+    permalink: /projects/:path.html
+
+defaults:
+  # page.root is the relative prefix to the site root. Top-level pages: "".
+  - scope: { path: "" }
+    values:
+      root: ""
+  # Collection docs live one level down at /projects/, so they need "../".
+  - scope: { path: "", type: "projects" }
+    values:
+      root: "../"
+      layout: "project"
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.txt
+  - CMS-PLAN.md
+  - vendor
+
+# No plugins: keeps the build identical under GitHub's native Jekyll, which
+# only permits a fixed whitelist.
+plugins: []

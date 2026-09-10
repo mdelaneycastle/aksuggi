@@ -1,0 +1,59 @@
+head_title: Design, Photo & Film | AK Suggi
+head_description: AK Suggi — websites, art direction, photography and film. One creative, three perspectives.
+intro_note: I design websites with art direction that brings brands to life.
+meta_left: Design / Photo / Film
+meta_right: Available for freelance
+hero:
+  src: assets/images/home-hero.svg
+  alt: Placeholder for AK working in the studio
+  shape: landscape
+  mobile_shape: portrait
+  position: 50% 50%
+  mobile_position: 50% 50%
+about:
+  eyebrow: About me
+  heading: I’m a designer focused on websites and art direction, creating clean, thoughtful experiences that help brands feel clear and distinct.
+  copy: "My approach is simple: understand the brand first, then shape how it shows up online. From layout to typography, every detail is intentional—balancing aesthetics with clarity and usability."
+  portrait:
+    src: assets/images/about-portrait.svg
+    alt: Placeholder for AK’s portrait
+    shape: portrait
+    mobile_shape: portrait
+    position: 50% 50%
+    mobile_position: 50% 50%
+# Fixed design element - contains a <wbr> soft line-break hint. Marked readonly
+# in the CMS so the typographic markup cannot be destroyed.
+statement_lines:
+  - DESIGN.<wbr>CREATE.
+  - INSPIRE.
+disciplines:
+  - href: design.html
+    title: Design
+    lines: [Art direction, Branding]
+    image:
+      src: assets/images/design-01.svg
+      alt: Placeholder for featured design work
+      shape: landscape
+      mobile_shape: portrait
+      position: 50% 50%
+      mobile_position: 50% 50%
+  - href: photo.html
+    title: Photo
+    lines: [Modelling, Photography]
+    image:
+      src: assets/images/photo-01.svg
+      alt: Placeholder for featured photo work
+      shape: landscape
+      mobile_shape: portrait
+      position: 50% 50%
+      mobile_position: 50% 50%
+  - href: film.html
+    title: Film
+    lines: [Fashion, Branding]
+    image:
+      src: assets/images/film-01.svg
+      alt: Placeholder for featured film work
+      shape: landscape
+      mobile_shape: portrait
+      position: 50% 50%
+      mobile_position: 50% 50%
