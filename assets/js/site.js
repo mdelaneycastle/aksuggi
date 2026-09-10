@@ -84,7 +84,8 @@
       if (rect.bottom < 0 || rect.top > height) continue;
       const progress = clamp((height - rect.top) / (height + rect.height));
       const offset = (progress - .5) * 4;
-      frame.querySelector('img').style.transform = `translate3d(0, ${offset.toFixed(3)}%, 0) scale(1.065)`;
+      const image = frame.querySelector('img');
+      if (image) image.style.transform = `translate3d(0, ${offset.toFixed(3)}%, 0) scale(1.065)`;
     }
     if (heroRect && heroRect.bottom >= 0 && heroRect.top <= height) {
       const opening = clamp((height - heroRect.top) / (height * .75));
@@ -100,7 +101,7 @@
   }
 
   function resetImages() {
-    frames.forEach(frame => frame.querySelector('img').style.removeProperty('transform'));
+    frames.forEach(frame => frame.querySelector('img')?.style.removeProperty('transform'));
     if (hero) hero.style.removeProperty('clip-path');
   }
 
@@ -165,4 +166,23 @@
   window.addEventListener('beforeprint', stop);
   window.addEventListener('afterprint', start);
   start();
+})();
+
+/* Video embeds. The still is the poster; pressing play swaps in the player
+   itself, so the film runs in its own box rather than sending anyone away. */
+(() => {
+  'use strict';
+  document.querySelectorAll('.video-embed[data-video]').forEach(figure => {
+    const button = figure.querySelector('.video-play');
+    if (!button) return;
+    button.addEventListener('click', () => {
+      const player = document.createElement('iframe');
+      player.src = `https://www.youtube-nocookie.com/embed/${figure.dataset.video}?autoplay=1&rel=0`;
+      player.title = figure.dataset.videoTitle || 'Video player';
+      player.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      player.allowFullscreen = true;
+      figure.replaceChildren(player);
+      player.focus();
+    });
+  });
 })();

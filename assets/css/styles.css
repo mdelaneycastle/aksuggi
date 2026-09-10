@@ -57,6 +57,14 @@ ul { list-style: none; margin: 0; padding: 0; }
 .media[data-shape=square] { --ratio: 1 / 1; }
 .media[data-shape=portrait] { --ratio: 4 / 5; }
 .media[data-fit=contain] img { object-fit: contain; }
+/* VIDEO: the thumbnail stands in until the visitor presses play, so the film
+   plays inside its own box and nothing loads from YouTube before then. */
+.video-embed { position: relative; background: #101010; }
+.video-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
+.video-embed noscript iframe { position: absolute; inset: 0; }
+.video-play { position: absolute; inset: 0; display: grid; place-items: center; width: 100%; padding: 0; border: 0; background: #00000026; color: #f4f4f4; font: inherit; cursor: pointer; }
+.video-play span:not(.sr-only) { display: grid; place-items: center; width: 76px; height: 76px; border: 1px solid #f4f4f4a6; border-radius: 50%; background: #0000004d; font-size: 1.375rem; transition: transform 400ms cubic-bezier(.22, 1, .36, 1), background 400ms cubic-bezier(.22, 1, .36, 1); }
+.video-play:hover span:not(.sr-only), .video-play:focus-visible span:not(.sr-only) { background: #000000a6; transform: scale(1.06); }
 .hero-image[data-shape=landscape] { --ratio: 16 / 10; border-radius: 12px; }
 .about { width: 50%; margin: 78px 0 var(--space) auto; padding-left: 20px; }
 .about-portrait { width: 220px; margin-top: 22px; margin-bottom: 28px; border-radius: 4px; }
