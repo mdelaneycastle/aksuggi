@@ -1,0 +1,33 @@
+email: info@suggi.co.uk
+eyebrow: "One creative | Three perspectives"
+eyebrow_aria: AK Suggi home — one creative, three perspectives
+contact_pill: CONTACT NOW
+skip_link: Skip to content
+menu_label: Menu
+nav:
+  home: Home
+  about: About
+  design: Design
+  photo: Photo
+  film: Film
+  contact: Contact
+contact:
+  lines:
+    - LET’S BRING
+    - YOUR VISION
+    - TO LIFE
+  button: Contact me
+footer:
+  get_in_touch: Get in touch
+  menu_label: Menu
+  back_to_top: Back to top ↑
+  instagram_label: Instagram
+  portrait:
+    src: assets/images/footer-portrait.svg
+    alt: Placeholder for AK’s footer portrait
+    shape: square
+    mobile_shape: landscape
+    position: 50% 50%
+    mobile_position: 50% 50%
+explore: Explore ↗
+next_project: Next project →

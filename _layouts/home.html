@@ -1,0 +1,24 @@
+---
+layout: base
+---
+{%- assign h = site.data.home -%}
+<section aria-labelledby="home-title">
+  <div class="home-intro">
+    <h1 class="wordmark" id="home-title"><span>AK</span><span>SUGGI</span></h1>
+    <p class="intro-note">{{ h.intro_note | escape }}</p>
+  </div>
+  <div class="intro-meta"><p class="eyebrow">{{ h.meta_left | escape }}</p><p class="eyebrow availability">{{ h.meta_right | escape }}</p></div>
+  {% include figure.html image=h.hero class="hero-image" eager=true %}
+</section>
+<section class="about" id="about" aria-labelledby="about-title">
+  <p class="eyebrow">{{ h.about.eyebrow | escape }}</p>
+  {% include figure.html image=h.about.portrait class="about-portrait" %}
+  <h2 id="about-title">{{ h.about.heading | escape }}</h2>
+  <p class="about-copy">{{ h.about.copy | escape }}</p>
+</section>
+<section aria-labelledby="work-title">
+  <h2 class="statement" id="work-title">{% for line in h.statement_lines %}<span>{{ line | escape | replace: '&lt;wbr&gt;', '<wbr>' }}</span>{% endfor %}</h2>
+  <div class="disciplines">{% for d in h.disciplines %}<a class="discipline-link" href="{{ d.href }}">
+      {% include figure.html image=d.image %}
+      <div class="discipline-caption"><h3>{{ d.title | escape }} <span class="arrow" aria-hidden="true">↗</span></h3><p>{% for line in d.lines %}{{ line | escape }}{% unless forloop.last %}<br>{% endunless %}{% endfor %}</p></div>
+    </a>{% endfor %}</div></section>

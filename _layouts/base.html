@@ -1,0 +1,70 @@
+{%- comment -%}
+The shared chrome, which used to be copy-pasted into all 24 HTML files.
+Head, header, contact section and footer are inlined here rather than split into
+separate includes: fewer whitespace boundaries makes byte-identity tractable, and
+the goal (chrome exists in exactly one place) is met either way.
+{%- endcomment -%}
+{%- assign s = site.data.site -%}
+{%- assign r = page.root -%}
+{%- assign active = '' -%}
+{%- assign head_desc = page.head_description -%}
+{%- if page.layout == 'home' -%}
+  {%- assign active = 'home' -%}
+  {%- assign head_title = site.data.home.head_title -%}
+  {%- assign head_desc = site.data.home.head_description -%}
+{%- elsif page.layout == 'category' -%}
+  {%- assign cat = site.data.categories[page.category] -%}
+  {%- assign active = page.category -%}
+  {%- assign head_title = cat.head_title -%}
+  {%- assign head_desc = cat.head_description -%}
+{%- else -%}
+  {%- assign cat = site.data.categories[page.category] -%}
+  {%- capture head_title -%}{{ cat.label }} — {{ page.title }} | AK Suggi{%- endcapture -%}
+{%- endif -%}
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ head_title | escape }}</title>
+  <meta name="description" content="{{ head_desc | escape }}">
+  <meta name="theme-color" content="#f4f4f4">
+  <link rel="icon" href="{{ r }}assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ r }}assets/css/styles.css">
+  <script src="{{ r }}assets/js/site.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">{{ s.skip_link | escape }}</a>
+<div class="wrap" id="top">
+  <header class="site-header">
+    <a class="eyebrow" href="{{ r }}index.html" aria-label="{{ s.eyebrow_aria | escape }}">{{ s.eyebrow | escape }}</a>
+    <div class="header-right">
+      <a class="contact-pill" href="mailto:{{ s.email }}">{{ s.contact_pill | escape }}</a>
+      <details class="menu">
+        <summary><span class="sr-only">{{ s.menu_label | escape }}</span><span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i><i></i></span></summary>
+        <nav class="menu-panel" aria-label="Main navigation"><ul><li><a href="{{ r }}index.html"{% if active == 'home' %} aria-current="page"{% endif %}>{{ s.nav.home | escape }}</a></li><li><a href="{{ r }}index.html#about">{{ s.nav.about | escape }}</a></li><li><a href="{{ r }}design.html"{% if active == 'design' %} aria-current="page"{% endif %}>{{ s.nav.design | escape }}</a></li><li><a href="{{ r }}photo.html"{% if active == 'photo' %} aria-current="page"{% endif %}>{{ s.nav.photo | escape }}</a></li><li><a href="{{ r }}film.html"{% if active == 'film' %} aria-current="page"{% endif %}>{{ s.nav.film | escape }}</a></li><li><a href="mailto:{{ s.email }}">{{ s.nav.contact | escape }}</a></li></ul></nav>
+      </details>
+    </div>
+  </header>
+</div>
+<main class="wrap" id="main">
+{{ content }}<section class="contact-section" id="contact" aria-labelledby="contact-title">
+  <h2 id="contact-title">{% for line in s.contact.lines %}<span>{{ line | escape }}</span>{% endfor %}</h2>
+  <a class="button" href="mailto:{{ s.email }}">{{ s.contact.button | escape }}</a>
+</section>
+</main>
+<div class="wrap"><footer class="site-footer">
+  <div class="footer-top">
+    <div><p class="eyebrow">{{ s.footer.get_in_touch | escape }}</p><a class="footer-email" href="mailto:{{ s.email }}">{{ s.email }}</a></div>
+    <nav class="footer-nav" aria-label="Footer navigation"><p class="eyebrow">{{ s.footer.menu_label | escape }}</p><ul>
+      <li><a href="{{ r }}index.html#about">{{ s.nav.about | escape }}</a></li><li><a href="{{ r }}design.html">{{ s.nav.design | escape }}</a></li><li><a href="{{ r }}photo.html">{{ s.nav.photo | escape }}</a></li><li><a href="{{ r }}film.html">{{ s.nav.film | escape }}</a></li>
+    </ul></nav>
+  </div>
+  <div class="footer-brand">
+    <a class="wordmark" href="{{ r }}index.html" aria-label="AK Suggi home"><span>AK</span><span>SUGGI</span></a>
+    {% include figure.html image=s.footer.portrait class="footer-portrait" %}
+  </div>
+  <div class="footer-bottom"><a data-instagram hidden>{{ s.footer.instagram_label | escape }}</a><a href="#top">{{ s.footer.back_to_top | escape }}</a></div>
+</footer></div>
+</body>
+</html>

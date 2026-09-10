@@ -1,0 +1,38 @@
+{%- comment -%}
+The site's entire image model. Used ~161 times.
+  image  - object with src, alt, shape, mobile_shape, position, mobile_position, width, height, fit
+  class  - extra class after "media" (hero-image, about-portrait, footer-portrait). Omit for none.
+  eager  - true for the first image on a page; adds fetchpriority="high".
+
+Every variable here is fig_-prefixed ON PURPOSE. Liquid assigns are global to the
+whole render, so an unprefixed name (h, src, pos) silently clobbers the caller's
+variable of the same name for the rest of the page.
+
+Two byte-level quirks in the original HTML are reproduced deliberately:
+  - class="media " keeps its trailing space when no extra class is passed
+  - loading="lazy"  decoding gets two spaces where fetchpriority is absent
+
+This file must NOT end with a newline: .image-pair puts two figures back to back
+with no whitespace between them.
+{%- endcomment -%}
+{%- assign fig = include.image -%}
+{%- assign fig_lead = fig.src | slice: 0, 1 -%}
+{%- if fig_lead == '/' -%}
+{%- assign fig_src = fig.src | slice: 1, 4096 -%}
+{%- else -%}
+{%- assign fig_src = fig.src -%}
+{%- endif -%}
+{%- assign fig_shape = fig.shape | default: 'landscape' -%}
+{%- assign fig_mshape = fig.mobile_shape | default: fig_shape -%}
+{%- assign fig_pos = fig.position | default: '50% 50%' -%}
+{%- assign fig_mpos = fig.mobile_position | default: fig_pos -%}
+{%- assign fig_w = fig.width | default: 1600 -%}
+{%- assign fig_h = fig.height | default: 1200 -%}
+{%- if include.eager -%}
+{%- assign fig_load = 'eager' -%}{%- assign fig_prio = 'fetchpriority="high"' -%}
+{%- else -%}
+{%- assign fig_load = 'lazy' -%}{%- assign fig_prio = '' -%}
+{%- endif -%}
+<figure class="media {{ include.class }}" data-shape="{{ fig_shape }}" data-mobile-shape="{{ fig_mshape }}"{% if fig.fit == 'contain' %} data-fit="contain"{% endif %} style="--position: {{ fig_pos }}; --mobile-position: {{ fig_mpos }}">
+  <img src="{{ page.root }}{{ fig_src }}" alt="{{ fig.alt | escape }}" width="{{ fig_w }}" height="{{ fig_h }}" loading="{{ fig_load }}" {{ fig_prio }} decoding="async">
+</figure>
