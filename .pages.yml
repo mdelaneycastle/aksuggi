@@ -1,4 +1,283 @@
+# Pages CMS configuration - app.pagescms.org
+#
+# Design notes for whoever maintains this:
+#  - Structural keys (category, order, nav_style, featured, back_label) are
+#    deliberately NOT declared. settings.content.merge preserves undeclared
+#    top-level keys on save, so they stay in the files and stay invisible.
+#  - Keys inside a LIST must be declared, because lists are replaced wholesale
+#    on save. That's why `href` appears under disciplines: omitting it would
+#    wipe the discipline links.
+#  - Shapes and crops are `select` fields. A select can only emit a listed
+#    value, so an invalid layout is unreachable - this is what makes the
+#    design un-breakable from the editor's side.
+
 media:
   input: assets/images
   output: assets/images
   extensions: [jpg, jpeg, png, webp, avif, svg]
+
+settings:
+  content:
+    merge: true
+
+components:
+  - name: picture
+    type: object
+    fields:
+      - name: src
+        label: Image
+        type: image
+      - name: alt
+        label: Describe the image
+        type: string
+        required: true
+        description: One short sentence. Read aloud by screen readers, and shown if the image can't load.
+      - name: shape
+        label: Shape on desktop
+        type: select
+        default: landscape
+        options:
+          values:
+            - { value: landscape, label: "Wide (16:9)" }
+            - { value: square, label: "Square (1:1)" }
+            - { value: portrait, label: "Tall (4:5)" }
+      - name: mobile_shape
+        label: Shape on phones
+        type: select
+        default: portrait
+        options:
+          values:
+            - { value: landscape, label: "Wide (16:9)" }
+            - { value: square, label: "Square (1:1)" }
+            - { value: portrait, label: "Tall (4:5)" }
+      - name: position
+        label: Keep this part in frame (desktop)
+        type: select
+        default: "50% 50%"
+        description: Photos are cropped to fit the shape. Choose what must not be cut off.
+        options:
+          values:
+            - { value: "50% 50%", label: Centre }
+            - { value: "50% 25%", label: "Upper middle (good for faces)" }
+            - { value: "50% 0%", label: Top }
+            - { value: "50% 100%", label: Bottom }
+            - { value: "0% 50%", label: Left }
+            - { value: "100% 50%", label: Right }
+      - name: mobile_position
+        label: Keep this part in frame (phones)
+        type: select
+        default: "50% 50%"
+        options:
+          values:
+            - { value: "50% 50%", label: Centre }
+            - { value: "50% 25%", label: "Upper middle (good for faces)" }
+            - { value: "50% 0%", label: Top }
+            - { value: "50% 100%", label: Bottom }
+            - { value: "0% 50%", label: Left }
+            - { value: "100% 50%", label: Right }
+
+content:
+  # ─────────── appears on every page ───────────
+  - name: site
+    label: Site-wide
+    type: file
+    path: _data/site.yml
+    format: yaml
+    description: These appear on every page of the site.
+    fields:
+      - name: email
+        label: Contact email address
+        type: string
+        required: true
+        description: Used by the CONTACT NOW button, the Contact menu item, the Contact me button and the footer - on every page.
+      - name: eyebrow
+        label: Header strapline
+        type: string
+        required: true
+      - name: contact_pill
+        label: Header button text
+        type: string
+        required: true
+      - name: contact
+        label: Contact section
+        type: object
+        fields:
+          - name: lines
+            label: Headline lines
+            type: string
+            list: { min: 1, max: 4 }
+            description: Each line appears on its own row, in capitals.
+          - name: button
+            label: Button text
+            type: string
+            required: true
+      - name: footer
+        label: Footer
+        type: object
+        fields:
+          - { name: get_in_touch, label: "'Get in touch' label", type: string }
+          - { name: menu_label, label: "'Menu' label", type: string }
+          - { name: back_to_top, label: "'Back to top' link", type: string }
+          - { name: instagram_label, label: Instagram link text, type: string }
+          - { name: portrait, label: Footer portrait, component: picture }
+
+  # ─────────── home page ───────────
+  - name: home
+    label: Home page
+    type: file
+    path: _data/home.yml
+    format: yaml
+    fields:
+      - name: head_title
+        label: Browser tab title
+        type: string
+        required: true
+      - name: head_description
+        label: Search-engine description
+        type: text
+        description: Around 150 characters. Shown under the page title in Google results.
+      - { name: hero, label: Hero image, component: picture }
+      - { name: intro_note, label: Intro sentence, type: text }
+      - { name: meta_left, label: Left caption, type: string }
+      - { name: meta_right, label: Right caption, type: string }
+      - name: about
+        label: About section
+        type: object
+        fields:
+          - { name: eyebrow, label: Small label above the section, type: string }
+          - { name: portrait, label: Portrait, component: picture }
+          - { name: heading, label: Headline, type: text }
+          - { name: copy, label: Paragraph, type: text }
+      - name: disciplines
+        label: The three panels
+        type: object
+        list: { min: 3, max: 3 }
+        description: Exactly three - the layout is designed around three.
+        fields:
+          - name: href
+            label: Links to
+            type: select
+            options:
+              values:
+                - { value: design.html, label: Design page }
+                - { value: photo.html, label: Photo page }
+                - { value: film.html, label: Film page }
+          - { name: image, label: Image, component: picture }
+          - { name: title, label: Title, type: string, required: true }
+          - name: lines
+            label: Caption lines
+            type: string
+            list: { min: 1, max: 3 }
+            description: One line per panel, stacked under the title.
+
+  # ─────────── the three gallery pages ───────────
+  - name: categories
+    label: Design / Photo / Film headings
+    type: file
+    path: _data/categories.yml
+    format: yaml
+    description: Headings and search-engine text for the three gallery pages. The projects themselves are edited under Projects.
+    fields:
+      - name: design
+        label: Design page
+        type: object
+        fields:
+          - { name: page_title, label: Big page heading, type: string, required: true }
+          - { name: section_title, label: Section heading, type: string, required: true }
+          - { name: head_title, label: Browser tab title, type: string, required: true }
+          - { name: head_description, label: Search-engine description, type: text }
+          - { name: back_label, label: "'Back to work' link text", type: string, required: true }
+      - name: photo
+        label: Photo page
+        type: object
+        fields:
+          - { name: page_title, label: Big page heading, type: string, required: true }
+          - { name: section_title, label: Section heading, type: string, required: true }
+          - { name: head_title, label: Browser tab title, type: string, required: true }
+          - { name: head_description, label: Search-engine description, type: text }
+          - { name: back_label, label: "'Back to work' link text", type: string, required: true }
+      - name: film
+        label: Film page
+        type: object
+        fields:
+          - { name: page_title, label: Big page heading, type: string, required: true }
+          - { name: section_title, label: Section heading, type: string, required: true }
+          - { name: head_title, label: Browser tab title, type: string, required: true }
+          - { name: head_description, label: Search-engine description, type: text }
+          - { name: back_label, label: "'Back to work' link text", type: string, required: true }
+
+  # ─────────── the 19 project pages ───────────
+  - name: projects
+    label: Projects
+    type: collection
+    path: _projects
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    operations:
+      create: false
+      rename: false
+      delete: false
+    view:
+      primary: title
+      fields: [title, category]
+    fields:
+      - { name: title, label: Project title, type: string, required: true }
+      - name: head_description
+        label: Search-engine description
+        type: text
+      - name: description
+        label: Project description
+        type: text
+        description: The large paragraph at the top of the page.
+      - name: meta
+        label: Project details
+        type: object
+        list: { min: 0, max: 8 }
+        description: Add, remove and reorder rows freely.
+        fields:
+          - { name: label, label: Label, type: string, required: true, description: "e.g. Client, Services, Year, Role" }
+          - { name: value, label: Value, type: string, required: true }
+      - name: thumbnail
+        label: Gallery card
+        component: picture
+        description: How this project looks on the Design / Photo / Film page.
+      - name: gallery
+        label: Project gallery
+        type: block
+        list: { max: 14 }
+        blockKey: type
+        blocks:
+          - name: single
+            label: One full-width image
+            fields:
+              - { name: image, label: Image, component: picture }
+          - name: pair
+            label: Two images side by side
+            fields:
+              - { name: left, label: Left image, component: picture }
+              - { name: right, label: Right image, component: picture }
+          - name: note
+            label: Pull quote
+            fields:
+              - name: text
+                label: Text
+                type: text
+                description: Sits right-aligned, two-thirds width. A sentence or two.
+          - name: video
+            label: YouTube video
+            fields:
+              - name: video_url
+                label: YouTube link
+                type: string
+                required: true
+                pattern: "^(https?://)?((www\\.|m\\.)?youtube(-nocookie)?\\.com/(watch\\?.*v=|embed/|shorts/|live/)|youtu\\.be/)[A-Za-z0-9_-]{11}"
+                description: Paste the link from your browser's address bar, or the one YouTube's Share button gives you. Both work.
+              - name: video_title
+                label: Video title
+                type: string
+                required: true
+                description: Used by screen readers and as the player's title.
+              - name: poster
+                label: Still image
+                component: picture
+                description: Shown before the visitor presses play. Nothing loads from YouTube until they do.
