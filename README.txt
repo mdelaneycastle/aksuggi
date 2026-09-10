@@ -154,12 +154,10 @@ Email: find and replace info@suggi.co.uk across all HTML files. Both the
 visible address and mailto: links need updating. These are email links;
 there is no form, inbox backend or pretend submission confirmation.
 
-Instagram: open assets/js/site.js and change this line:
-  const instagramURL = '';
-to:
-  const instagramURL = 'https://www.instagram.com/your_actual_username/';
-Use AK's real username. The link stays hidden until it is configured.
-No social account was guessed.
+Instagram: assets/js/site.js now holds AK's confirmed profile:
+  const instagramURL = 'https://www.instagram.com/aksuggi/';
+That switches on the previously hidden Instagram link in every page footer.
+Clearing the value back to '' hides those links again.
 
 The header and footer are deliberately included in each HTML file so the
 site works without a server. To change shared wording, use your editor's
@@ -199,3 +197,93 @@ The delivered package was checked for local link/asset references, valid HTML
 structure, page titles, alternative-text coverage and JavaScript syntax.
 It has not been published or run on a localhost server. Visual browser testing
 has not been performed. There is no tracking, analytics, CMS or backend.
+
+
+SCROLL & PHOTOGRAPHY UPDATE
+
+The home-page disciplines now sit in a dark gallery chapter. On desktop the
+heading stays beside the photographs as you scroll. All pages have subtle,
+once-only text and image reveals. Desktop photographs have a small amount of
+scroll movement, and the home hero opens into its full frame.
+
+Everything still runs directly from index.html with no dependencies or server.
+The effects are in the final Photography & motion section of styles.css and
+the Scroll choreography section of site.js. Your earlier letter-spacing
+adjustment is preserved. Image sources and crop settings work as before.
+
+Scroll movement is disabled on touch devices and narrow screens. If a visitor
+has reduced motion enabled, the scroll effects and reveals are disabled.
+Images marked data-fit="contain" are never zoomed or moved. The animation
+only schedules a frame when needed, and pauses when the page is hidden.
+Content and links remain usable if JavaScript is disabled or unsupported.
+
+To remove the motion while keeping the new gallery layout, remove the second
+JavaScript block (starting Scroll choreography) from site.js. To restore the
+earlier layout too, remove the Photography & motion section from styles.css.
+
+Validation: JavaScript syntax and all local HTML links/assets checked.
+The motion has not been visually tested in a browser.
+
+
+NFC BUSINESS CARD PAGE
+
+card.html is a standalone landing page for the NFC business cards. It is
+built for a phone held in one hand: a dark plate carrying the stacked AK
+SUGGI wordmark over a portrait, then tap-sized actions, the three
+disciplines and the written-out details.
+
+  card.html              The page itself
+  assets/css/card.css    Its own stylesheet; styles.css is untouched
+  assets/js/card.js      Instagram, phone and share buttons, arrival reveals
+  ak-suggi.vcf           The contact file behind 'Save my contact'
+
+WHAT TO ENCODE ON THE CARDS
+
+  https://marcdelaney.co.uk/aksuggi/card
+
+The .html is optional on this host. When suggi.co.uk goes live the same page
+is at https://suggi.co.uk/card, so re-encoding the cards is a one-line change
+if you would rather wait and write the final address instead.
+
+The page is marked noindex so it stays out of search results while remaining
+shareable. Every link is relative, so the folder works at any address.
+
+WHAT IS ON THE PAGE
+
+  Save my contact   ak-suggi.vcf
+  See the work      index.html, relative so it follows the folder
+  Call or text      07960 136044
+  Email me          info@suggi.co.uk
+  Instagram         @aksuggi
+  Share this card   native share sheet, where the browser has one
+
+The portrait is AK's black and white studio photograph, supplied as a WebP
+with a JPEG fallback (assets/images/ak-portrait.webp and .jpg, both 1000px
+wide). The crop is set by object-position on .plate-photo img in card.css;
+move the second value if the head should sit higher or lower in the frame.
+
+The phone number, email and Instagram are written straight into card.html
+rather than injected by script, so they survive with JavaScript switched off.
+Changing a detail means editing card.html and ak-suggi.vcf to match.
+
+BEFORE HANDING THE CARDS OUT
+
+1. Check ak-suggi.vcf saves correctly by tapping 'Save my contact' on both an
+   iPhone and an Android phone.
+2. When suggi.co.uk is live, change the URL line in ak-suggi.vcf and the
+   visible website line in card.html, then re-encode the cards if you wrote
+   the marcdelaney.co.uk address onto them.
+3. Confirm 'Available for freelance' still applies, or remove that pill from
+   the plate in card.html.
+
+SAVING THE CONTACT
+
+'Save my contact' links to ak-suggi.vcf. On iPhone this opens the Add to
+Contacts sheet when the host sends the file as text/vcard; otherwise it saves
+to Files and opens in Contacts from there. Android downloads it and offers to
+import. The email, website and disciplines are also written out further down
+the page, so nothing depends on that download working.
+
+'Share this card' appears only in browsers that support native sharing.
+The reveals on arrival are skipped for visitors who prefer reduced motion.
+The page works with JavaScript disabled: only those two buttons rely on it.

@@ -1,0 +1,236 @@
+/* AK SUGGI — NFC card landing page.
+   Self-contained: this file never loads or overrides assets/css/styles.css.
+   Mobile first, because the page is reached by tapping a card with a phone. */
+
+@font-face {
+  font-family: Inter;
+  src: url('../fonts/Inter-Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --ink: #101010;
+  --paper: #f4f4f4;
+  --muted: #bcbcbc;
+  --line: #2b2b2b;
+  --panel: #171717;
+  --ease: cubic-bezier(.22, 1, .36, 1);
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+h1, h2, p, figure, dl, dd { margin: 0; }
+ul { list-style: none; margin: 0; padding: 0; }
+img { display: block; width: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  padding: clamp(14px, 4vw, 32px);
+  display: flex;
+  background: var(--ink);
+  color: var(--paper);
+  font: 400 1rem/1.45 Inter, Arial, sans-serif;
+  letter-spacing: -.015em;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+a:focus-visible { outline: 2px solid var(--paper); outline-offset: 4px; }
+a { -webkit-tap-highlight-color: transparent; }
+
+.skip-link { position: fixed; top: -100px; left: 20px; z-index: 20; background: var(--paper); color: var(--ink); padding: 12px 20px; }
+.skip-link:focus { top: 16px; }
+
+.card {
+  width: min(100%, 470px);
+  min-width: 0;
+  margin: auto;
+  display: grid;
+  gap: clamp(20px, 5vw, 28px);
+}
+
+.eyebrow {
+  font-size: .75rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -.01em;
+  text-transform: uppercase;
+}
+.muted { color: var(--muted); }
+
+/* ---- The plate: the card itself, portrait behind a scrim ---- */
+.plate {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--panel);
+  min-height: min(62svh, 460px);
+  padding: 18px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 16px;
+}
+.plate-photo {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  aspect-ratio: auto;
+}
+.plate-photo picture { display: block; height: 100%; }
+/* The head sits high in the frame; the wordmark then lands on the jacket. */
+.plate-photo img { height: 100%; object-fit: cover; object-position: 50% 20%; }
+.plate::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  /* Light over the face, heavy under the wordmark. */
+  background:
+    linear-gradient(180deg, #10101099 0%, #1010100f 26%, #10101047 56%, #101010f7 100%),
+    linear-gradient(90deg, #1010104d, #10101000 62%);
+}
+.plate-top { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 10px 12px; }
+.tag {
+  justify-self: start;
+  margin-top: 2px;
+  padding: 6px 14px;
+  border: 1px solid #ffffff59;
+  border-radius: 30px;
+  font-size: .6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: -.01em;
+  white-space: nowrap;
+  backdrop-filter: blur(6px);
+}
+.tag::before { content: '+'; padding-right: 5px; }
+
+.wordmark {
+  font-size: clamp(3.5rem, 19vw, 5.25rem);
+  line-height: .79;
+  font-weight: 780;
+  letter-spacing: -.04em;
+}
+.wordmark span { display: block; }
+.plate-foot { display: grid; justify-items: start; gap: 10px; }
+.role { max-width: 15em; font-size: 1rem; font-weight: 650; line-height: 1.2; }
+
+/* A single light sweep across the plate on arrival — the tap moment. */
+.plate-shine {
+  position: absolute;
+  inset: -40% -60%;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(75deg, #fff0 40%, #ffffff24 50%, #fff0 60%);
+  transform: translateX(-70%);
+}
+.motion .plate-shine { animation: sweep 1900ms var(--ease) 380ms 1 both; }
+@keyframes sweep { to { transform: translateX(70%); } }
+
+/* ---- Actions ---- */
+.actions { display: grid; gap: 9px; }
+.action {
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 58px;
+  padding: 12px 18px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--panel);
+  font-size: 1rem;
+  font-weight: 650;
+  transition: transform 180ms var(--ease), background-color 180ms ease, border-color 180ms ease;
+}
+button.action {
+  width: 100%;
+  /* Not the font shorthand: it would reset the 650 weight set above. */
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  text-align: left;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+.action .arrow { font-weight: 400; font-size: .9375rem; color: var(--muted); transition: transform 220ms var(--ease); }
+.action--primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.action--primary .arrow { color: #626262; }
+.action:active { transform: scale(.985); }
+.action-label { display: grid; gap: 2px; min-width: 0; }
+.action-label small { font-size: .75rem; font-weight: 500; color: var(--muted); letter-spacing: -.01em; }
+.action--primary .action-label small { color: #626262; }
+@media (hover: hover) and (pointer: fine) {
+  .action:hover { border-color: #5a5a5a; }
+  .action--primary:hover { background: #fff; border-color: #fff; }
+  .action:hover .arrow { transform: translate(3px, -3px); }
+}
+
+/* ---- Three perspectives ---- */
+.perspectives { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
+.perspective {
+  display: grid;
+  align-content: space-between;
+  gap: 18px;
+  min-height: 96px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--panel);
+  transition: border-color 180ms ease, transform 180ms var(--ease);
+}
+.perspective { min-width: 0; }
+.perspective h2 { font-size: 1.0625rem; font-weight: 700; letter-spacing: -.035em; line-height: 1.1; }
+.perspective .arrow { justify-self: end; font-size: .875rem; color: var(--muted); transition: transform 220ms var(--ease); }
+.perspective:active { transform: scale(.985); }
+@media (hover: hover) and (pointer: fine) {
+  .perspective:hover { border-color: #5a5a5a; }
+  .perspective:hover .arrow { transform: translate(3px, -3px); }
+}
+
+/* ---- Written-out details, so nothing depends on a download ---- */
+.details { border-top: 1px solid var(--line); padding-top: 18px; display: grid; gap: 14px; }
+.details > div { display: grid; gap: 3px; }
+.details dd { font-size: 1rem; font-weight: 600; line-height: 1.25; word-break: break-word; }
+.details a:hover { text-decoration: underline; text-underline-offset: .2em; }
+
+.card-foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-bottom: 4px; }
+.mark {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: .9375rem;
+  font-weight: 780;
+  letter-spacing: -.05em;
+}
+
+/* ---- Arrival reveals. Nothing is hidden unless JS is running. ---- */
+.motion [data-reveal] { opacity: 0; transform: translateY(14px); }
+.motion [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+  transition: opacity 620ms var(--ease), transform 620ms var(--ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion [data-reveal], .motion [data-reveal].is-in { opacity: 1; transform: none; transition: none; }
+  .motion .plate-shine { animation: none; }
+  .action, .perspective, .arrow { transition: none; }
+}
+
+/* Wider screens: the card stays a card, centred, with a little more air. */
+@media (min-width: 720px) {
+  .plate { min-height: 420px; padding: 24px; }
+  .wordmark { font-size: 4.75rem; }
+}

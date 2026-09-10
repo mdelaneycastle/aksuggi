@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>AK Suggi — Card</title>
+  <meta name="description" content="AK Suggi — websites, art direction, photography and film. Save my details or visit the studio.">
+  <meta name="theme-color" content="#101010">
+  <meta name="robots" content="noindex, follow">
+  <meta property="og:title" content="AK Suggi — Design, Photo &amp; Film">
+  <meta property="og:description" content="One creative, three perspectives. Save my details or visit suggi.co.uk.">
+  <meta property="og:type" content="profile">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/card.css">
+  <!-- Reveals apply only when scripting is available; without JS everything shows. -->
+  <script>document.documentElement.classList.add('motion');</script>
+  <script src="assets/js/card.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#card">Skip to details</a>
+
+<main class="card" id="card">
+
+  <!-- PLATE: replace the portrait src and alt with a real photograph. -->
+  <section class="plate" aria-labelledby="card-name" data-reveal>
+    <figure class="plate-photo">
+      <picture>
+        <source srcset="assets/images/ak-portrait.webp" type="image/webp">
+        <img src="assets/images/ak-portrait.jpg" alt="AK Suggi, photographed in black and white against a dark studio backdrop" width="1000" height="1252" loading="eager" fetchpriority="high" decoding="async">
+      </picture>
+    </figure>
+    <span class="plate-shine" aria-hidden="true"></span>
+
+    <div class="plate-top">
+      <p class="eyebrow">One creative<br>Three perspectives</p>
+    </div>
+
+    <div></div>
+
+    <div class="plate-foot">
+      <h1 class="wordmark" id="card-name"><span>AK</span><span>SUGGI</span></h1>
+      <p class="role">I design websites with art direction that brings brands to life.</p>
+      <!-- Remove this line if AK is not taking work on. -->
+      <p class="tag">Available for freelance</p>
+    </div>
+  </section>
+
+  <nav class="actions" aria-label="Contact actions" data-reveal>
+    <!-- No download attribute: iOS then shows the "Add to Contacts" sheet directly. -->
+    <a class="action action--primary" href="ak-suggi.vcf" type="text/vcard">
+      <span class="action-label">Save my contact<small>Adds me to your phone</small></span>
+      <span class="arrow" aria-hidden="true">↓</span>
+    </a>
+    <!-- Relative link: works at marcdelaney.co.uk/aksuggi/ now and at suggi.co.uk later. -->
+    <a class="action" href="index.html">
+      <span class="action-label">See the work<small>Design, photo &amp; film</small></span>
+      <span class="arrow" aria-hidden="true">↗</span>
+    </a>
+    <a class="action" href="mailto:info@suggi.co.uk">
+      <span class="action-label">Email me<small>info@suggi.co.uk</small></span>
+      <span class="arrow" aria-hidden="true">↗</span>
+    </a>
+    <a class="action" href="tel:+447960136044">
+      <span class="action-label">Call or text<small>07960 136044</small></span>
+      <span class="arrow" aria-hidden="true">↗</span>
+    </a>
+    <a class="action" href="https://www.instagram.com/aksuggi/" rel="me noopener">
+      <span class="action-label">Instagram<small>@aksuggi</small></span>
+      <span class="arrow" aria-hidden="true">↗</span>
+    </a>
+    <!-- Hidden unless the browser can share; nothing is lost without it. -->
+    <button class="action" type="button" data-share hidden>
+      <span class="action-label">Share this card<small>Pass my details on</small></span>
+      <span class="arrow" aria-hidden="true">↗</span>
+    </button>
+  </nav>
+
+  <nav class="perspectives" aria-label="Disciplines" data-reveal>
+    <a class="perspective" href="design.html"><h2>Design</h2><span class="arrow" aria-hidden="true">↗</span></a>
+    <a class="perspective" href="photo.html"><h2>Photo</h2><span class="arrow" aria-hidden="true">↗</span></a>
+    <a class="perspective" href="film.html"><h2>Film</h2><span class="arrow" aria-hidden="true">↗</span></a>
+  </nav>
+
+  <dl class="details" data-reveal>
+    <div>
+      <dt class="eyebrow muted">Phone</dt>
+      <dd><a href="tel:+447960136044">07960 136044</a></dd>
+    </div>
+    <div>
+      <dt class="eyebrow muted">Email</dt>
+      <dd><a href="mailto:info@suggi.co.uk">info@suggi.co.uk</a></dd>
+    </div>
+    <!-- When suggi.co.uk goes live, change this visible text to suggi.co.uk
+         and update the URL line in ak-suggi.vcf to match. -->
+    <div>
+      <dt class="eyebrow muted">Website</dt>
+      <dd><a href="index.html">marcdelaney.co.uk/aksuggi</a></dd>
+    </div>
+  </dl>
+
+  <footer class="card-foot" data-reveal>
+    <p class="eyebrow muted">Tap. Save. Let’s work.</p>
+    <a class="mark" href="index.html" aria-label="AK Suggi home">AK</a>
+  </footer>
+
+</main>
+</body>
+</html>
