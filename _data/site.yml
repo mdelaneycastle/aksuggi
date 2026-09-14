@@ -23,11 +23,13 @@ footer:
   back_to_top: Back to top ↑
   instagram_label: Instagram
   portrait:
-    src: assets/images/footer-portrait.svg
-    alt: Placeholder for AK’s footer portrait
+    src: assets/images/homepage-shadow.jpg
+    alt: A black-and-white shadow portrait on a textured wall
     shape: square
-    mobile_shape: landscape
+    mobile_shape: square
     position: 50% 50%
     mobile_position: 50% 50%
+    width: 1000
+    height: 1000
 explore: Explore ↗
 next_project: Next project →

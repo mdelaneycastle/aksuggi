@@ -272,3 +272,11 @@ section[aria-labelledby="work-title"] .statement span:first-child { max-width: 5
   .media img { transform: none !important; }
   .hero-image { clip-path: none !important; }
 }
+
+
+/* Homepage photography supplied September 2026. */
+.media[data-shape="landscape-4-3"] { --ratio: 4 / 3; }
+@media (max-width: 760px) {
+  .media[data-mobile-shape="landscape-4-3"] { --mobile-ratio: 4 / 3; }
+  .intro-note { display: block; max-width: 28ch; margin-top: 28px; }
+}
