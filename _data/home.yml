@@ -50,9 +50,9 @@ disciplines:
       src: assets/images/homepage-photo.jpg
       alt: A portrait lit in pink and blue, surrounded by trails of light
       shape: landscape-4-3
-      mobile_shape: portrait
+      mobile_shape: landscape-4-3
       position: 50% 50%
-      mobile_position: 65% 50%
+      mobile_position: 50% 50%
       width: 1581
       height: 1186
   - href: film.html
@@ -62,8 +62,8 @@ disciplines:
       src: assets/images/homepage-film.jpg
       alt: An artist painting at an easel in his studio
       shape: landscape-4-3
-      mobile_shape: portrait
+      mobile_shape: landscape-4-3
       position: 50% 50%
-      mobile_position: 55% 50%
+      mobile_position: 50% 50%
       width: 1581
       height: 1186
