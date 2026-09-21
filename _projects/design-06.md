@@ -1,8 +1,8 @@
 ---
 category: design
 order: 5
-title: "Project 06"
-head_description: "Design portfolio project by AK Suggi."
+title: "Public Art | Exhibition Graphics"
+head_description: "Public Art | Exhibition Graphics — design project by AK Suggi."
 description: "Project description to follow."
 nav_style: pagination
 meta:
@@ -11,25 +11,25 @@ meta:
   - label: "Services"
     value: "To be added"
 thumbnail:
-  src: "assets/images/design-06.svg"
-  alt: "Placeholder for Design Project 06"
+  src: "assets/images/design-06.jpg"
+  alt: "Three street pavement boards showing Washington Green portrait artworks"
   shape: "landscape"
-  mobile_shape: "portrait"
+  mobile_shape: "landscape"
   position: "50% 50%"
   mobile_position: "50% 50%"
-  width: 1600
-  height: 1200
+  width: 1920
+  height: 1079
 gallery:
   - type: single
     image:
-      src: "assets/images/design-06.svg"
-      alt: "Placeholder for Design Project 06, image 1"
+      src: "assets/images/design-06.jpg"
+      alt: "Three street pavement boards showing Washington Green portrait artworks"
       shape: "landscape"
-      mobile_shape: "portrait"
+      mobile_shape: "landscape"
       position: "50% 50%"
       mobile_position: "50% 50%"
-      width: 1600
-      height: 1200
+      width: 1920
+      height: 1079
   - type: pair
     left:
       src: "assets/images/design-01.svg"

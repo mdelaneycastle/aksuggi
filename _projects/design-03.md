@@ -1,8 +1,8 @@
 ---
 category: design
 order: 2
-title: "Project 03"
-head_description: "Design portfolio project by AK Suggi."
+title: "Pelé | Brochure"
+head_description: "Pelé | Brochure — design project by AK Suggi."
 description: "Project description to follow."
 nav_style: pagination
 meta:
@@ -11,25 +11,25 @@ meta:
   - label: "Services"
     value: "To be added"
 thumbnail:
-  src: "assets/images/design-03.svg"
-  alt: "Placeholder for Design Project 03"
+  src: "assets/images/design-03.jpg"
+  alt: "A Pelé limited edition book lying open, showing yellow and blue halftone portraits"
   shape: "landscape"
-  mobile_shape: "portrait"
+  mobile_shape: "landscape"
   position: "50% 50%"
   mobile_position: "50% 50%"
-  width: 1600
-  height: 1200
+  width: 1920
+  height: 1079
 gallery:
   - type: single
     image:
-      src: "assets/images/design-03.svg"
-      alt: "Placeholder for Design Project 03, image 1"
+      src: "assets/images/design-03.jpg"
+      alt: "A Pelé limited edition book lying open, showing yellow and blue halftone portraits"
       shape: "landscape"
-      mobile_shape: "portrait"
+      mobile_shape: "landscape"
       position: "50% 50%"
       mobile_position: "50% 50%"
-      width: 1600
-      height: 1200
+      width: 1920
+      height: 1079
   - type: pair
     left:
       src: "assets/images/design-04.svg"

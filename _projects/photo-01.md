@@ -1,8 +1,8 @@
 ---
 category: photo
 order: 0
-title: "Project 01"
-head_description: "Photo portfolio project by AK Suggi."
+title: "Ron English | Location"
+head_description: "Ron English | Location — photo project by AK Suggi."
 description: "Project description to follow."
 nav_style: pagination
 meta:
@@ -11,25 +11,25 @@ meta:
   - label: "Services"
     value: "To be added"
 thumbnail:
-  src: "assets/images/photo-01.svg"
-  alt: "Placeholder for Photo Project 01"
+  src: "assets/images/photo-01.jpg"
+  alt: "A figure in a smiley-face jacket outside a Digbeth shopfront lit by a yellow neon sign"
   shape: "landscape"
-  mobile_shape: "portrait"
+  mobile_shape: "landscape"
   position: "50% 50%"
   mobile_position: "50% 50%"
-  width: 1600
-  height: 1200
+  width: 1920
+  height: 1079
 gallery:
   - type: single
     image:
-      src: "assets/images/photo-01.svg"
-      alt: "Placeholder for Photo Project 01, image 1"
+      src: "assets/images/photo-01.jpg"
+      alt: "A figure in a smiley-face jacket outside a Digbeth shopfront lit by a yellow neon sign"
       shape: "landscape"
-      mobile_shape: "portrait"
+      mobile_shape: "landscape"
       position: "50% 50%"
       mobile_position: "50% 50%"
-      width: 1600
-      height: 1200
+      width: 1920
+      height: 1079
   - type: pair
     left:
       src: "assets/images/photo-02.svg"

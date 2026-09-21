@@ -1,8 +1,8 @@
 ---
 category: photo
 order: 5
-title: "Project 06"
-head_description: "Photo portfolio project by AK Suggi."
+title: "Where There is Light | Photographic Essay"
+head_description: "Where There is Light | Photographic Essay — photo project by AK Suggi."
 description: "Project description to follow."
 nav_style: pagination
 meta:
@@ -11,25 +11,25 @@ meta:
   - label: "Services"
     value: "To be added"
 thumbnail:
-  src: "assets/images/photo-06.svg"
-  alt: "Placeholder for Photo Project 06"
+  src: "assets/images/photo-06.jpg"
+  alt: "The Where There Is Light photographic book, propped up against a wall"
   shape: "landscape"
-  mobile_shape: "portrait"
+  mobile_shape: "landscape"
   position: "50% 50%"
   mobile_position: "50% 50%"
-  width: 1600
-  height: 1200
+  width: 1920
+  height: 1079
 gallery:
   - type: single
     image:
-      src: "assets/images/photo-06.svg"
-      alt: "Placeholder for Photo Project 06, image 1"
+      src: "assets/images/photo-06.jpg"
+      alt: "The Where There Is Light photographic book, propped up against a wall"
       shape: "landscape"
-      mobile_shape: "portrait"
+      mobile_shape: "landscape"
       position: "50% 50%"
       mobile_position: "50% 50%"
-      width: 1600
-      height: 1200
+      width: 1920
+      height: 1079
   - type: pair
     left:
       src: "assets/images/photo-01.svg"

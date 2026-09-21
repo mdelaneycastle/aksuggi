@@ -1,8 +1,8 @@
 ---
 category: photo
 order: 2
-title: "Project 03"
-head_description: "Photo portfolio project by AK Suggi."
+title: "Lorenzo Quinn | Foundry"
+head_description: "Lorenzo Quinn | Foundry — photo project by AK Suggi."
 description: "Project description to follow."
 nav_style: pagination
 meta:
@@ -11,25 +11,25 @@ meta:
   - label: "Services"
     value: "To be added"
 thumbnail:
-  src: "assets/images/photo-03.svg"
-  alt: "Placeholder for Photo Project 03"
+  src: "assets/images/photo-03.jpg"
+  alt: "Bronze maquettes of human figures laid out on a foundry workbench"
   shape: "landscape"
-  mobile_shape: "portrait"
+  mobile_shape: "landscape"
   position: "50% 50%"
   mobile_position: "50% 50%"
-  width: 1600
-  height: 1200
+  width: 1920
+  height: 1079
 gallery:
   - type: single
     image:
-      src: "assets/images/photo-03.svg"
-      alt: "Placeholder for Photo Project 03, image 1"
+      src: "assets/images/photo-03.jpg"
+      alt: "Bronze maquettes of human figures laid out on a foundry workbench"
       shape: "landscape"
-      mobile_shape: "portrait"
+      mobile_shape: "landscape"
       position: "50% 50%"
       mobile_position: "50% 50%"
-      width: 1600
-      height: 1200
+      width: 1920
+      height: 1079
   - type: pair
     left:
       src: "assets/images/photo-04.svg"
