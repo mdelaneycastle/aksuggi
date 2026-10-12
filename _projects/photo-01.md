@@ -1,15 +1,15 @@
 ---
 category: photo
 order: 0
-title: "Ron English | Location"
-head_description: "Ron English | Location — photo project by AK Suggi."
-description: "Project description to follow."
+title: "Ron English | Location Digbeth"
+head_description: "Ron English | Location Digbeth — photo project by AK Suggi."
+description: "Ron English is an American contemporary artist widely known as the “Godfather of Street Art” for his pioneering work in culture jamming and billboard hijacking. While visiting UK, I had the opportunity shoot some imagery for PR. Digbeth was the perfect location."
 nav_style: pagination
 meta:
   - label: "Client"
-    value: "To be added"
+    value: "Ron English, Castle Fine Art"
   - label: "Services"
-    value: "To be added"
+    value: "Photography, Instagram Reels"
 thumbnail:
   src: "assets/images/photo-01.jpg"
   alt: "A figure in a smiley-face jacket outside a Digbeth shopfront lit by a yellow neon sign"
@@ -22,8 +22,8 @@ thumbnail:
 gallery:
   - type: single
     image:
-      src: "assets/images/photo-01.jpg"
-      alt: "A figure in a smiley-face jacket outside a Digbeth shopfront lit by a yellow neon sign"
+      src: "assets/images/ron-english-01.jpg"
+      alt: "Ron English leaning against a Digbeth shopfront beneath a yellow neon DIGBETH sign"
       shape: "landscape"
       mobile_shape: "landscape"
       position: "50% 50%"
@@ -32,53 +32,53 @@ gallery:
       height: 1079
   - type: pair
     left:
-      src: "assets/images/photo-02.svg"
-      alt: "Placeholder for Photo Project 01, image 2"
+      src: "assets/images/ron-english-02.jpg"
+      alt: "A grinning smiley-face sticker on a street post"
       shape: "square"
-      mobile_shape: "portrait"
+      mobile_shape: "square"
       position: "50% 50%"
       mobile_position: "50% 50%"
-      width: 1600
-      height: 1200
+      width: 1200
+      height: 1199
     right:
-      src: "assets/images/photo-03.svg"
-      alt: "Placeholder for Photo Project 01, image 3"
+      src: "assets/images/ron-english-03.jpg"
+      alt: "Ron English beneath a ‘Just Think-ing’ thought bubble drawn on a wall"
       shape: "square"
-      mobile_shape: "portrait"
+      mobile_shape: "square"
       position: "50% 50%"
       mobile_position: "50% 50%"
-      width: 1600
-      height: 1200
+      width: 1200
+      height: 1199
   - type: single
     image:
-      src: "assets/images/photo-04.svg"
-      alt: "Placeholder for Photo Project 01, image 4"
-      shape: "landscape"
-      mobile_shape: "portrait"
-      position: "50% 50%"
-      mobile_position: "50% 50%"
-      width: 1600
-      height: 1200
-  - type: note
-    text: "Project details to follow."
-  - type: single
-    image:
-      src: "assets/images/photo-05.svg"
-      alt: "Placeholder for Photo Project 01, image 5"
-      shape: "landscape"
-      mobile_shape: "portrait"
-      position: "50% 50%"
-      mobile_position: "50% 50%"
-      width: 1600
-      height: 1200
-  - type: single
-    image:
-      src: "assets/images/photo-06.svg"
-      alt: "Placeholder for Photo Project 01, image 6"
+      src: "assets/images/ron-english-04.jpg"
+      alt: "A graffiti-lined walkway in Digbeth, with a figure walking through the arch"
       shape: "landscape"
       mobile_shape: "landscape"
       position: "50% 50%"
       mobile_position: "50% 50%"
-      width: 1600
-      height: 1200
+      width: 1920
+      height: 1079
+  - type: note
+    text: "“In my experience I have been arrested for certain behavior on one day and greatly rewarded for the same behavior on another.” – Ron English"
+  - type: single
+    image:
+      src: "assets/images/ron-english-05.jpg"
+      alt: "A wall layered with graffiti and street-art stickers"
+      shape: "landscape"
+      mobile_shape: "landscape"
+      position: "50% 50%"
+      mobile_position: "50% 50%"
+      width: 1920
+      height: 1079
+  - type: single
+    image:
+      src: "assets/images/ron-english-06.jpg"
+      alt: "Ron English in front of a large cartoon mural"
+      shape: "landscape"
+      mobile_shape: "landscape"
+      position: "50% 50%"
+      mobile_position: "50% 50%"
+      width: 1920
+      height: 1079
 ---

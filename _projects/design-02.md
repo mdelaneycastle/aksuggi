@@ -49,8 +49,10 @@ gallery:
       mobile_position: "50% 50%"
       width: 1200
       height: 1199
-  - type: single
-    image:
+  - type: video
+    video_url: "https://youtu.be/8XzTvD1g86s"
+    video_title: "John Myatt | Picasso"
+    poster:
       src: "assets/images/john-myatt-04.jpg"
       alt: "John Myatt painting a Cubist palm-tree scene"
       shape: "landscape"
