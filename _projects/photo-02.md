@@ -1,8 +1,8 @@
 ---
 category: photo
 order: 1
-title: "Emma-Leone Palmer | Artists’ studio"
-head_description: "Emma-Leone Palmer | Artists’ studio — photo project by AK Suggi."
+title: "Emma-Leone Palmer | Artists’ Studio"
+head_description: "Emma-Leone Palmer | Artists’ Studio — photo project by AK Suggi."
 description: "A photoshoot with Emma-Leone Palmer, whose figurative art explores the interplay of light and darkness. Driven by a compulsive urge to create, she embraces the challenge of capturing emotion. The contrast at the heart of her work, echoed in Francis Bacon’s words, “In order for the light to shine so brightly, the darkness must be present” inspired me produce this stylistic style of photography."
 nav_style: pagination
 meta:
